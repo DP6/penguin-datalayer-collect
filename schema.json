@@ -1,0 +1,177 @@
+{
+  "$schema": "",
+  "title": "The Root Schema",
+  "array": {
+    "$id": "#/properties/schema",
+    "type": "array",
+    "items": [
+      {
+        "type": "object",
+        "properties": {
+          "event": {
+            "type": "string",
+            "enum": ["update"]
+          },
+          "aplicacao": {
+            "type": "object",
+            "properties": {
+              "bandeira": {
+                "type": "string",
+                "pattern": ".*"
+              },
+              "dominio": {
+                "type": "string",
+                "pattern": "pontofrio.com.br|casasbahia.com.br|extra.com.br"
+              },
+              "ambiente": {
+                "type": "string",
+                "enum": ["producao"]
+              },
+              "device": {
+                "type": "string",
+                "pattern": "desktop|mobile|msite"
+              },
+              "servidor": {
+                "type": "string",
+                "pattern": ".*"
+              }
+            },
+            "required": [
+              "bandeira",
+              "dominio",
+              "ambiente",
+              "device"
+            ]
+          }
+        },"required": ["event", "aplicacao"]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "event": {
+            "type": "string",
+            "enum": ["update"]
+          },
+          "pagina": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "pattern": ".*"
+              },
+              "nomePagina": {
+                "type": "string",
+                "pattern": ".*"
+              },
+              "templatePagina": {
+                "type": "string",
+                "pattern": ".*"
+              },
+              "tituloPagina": {
+                "type": "string",
+                "pattern": ".*"
+              },
+              "erro": {
+                "type": "string",
+                "pattern": ".*"
+              },
+              "navegacao": {
+                "type": "object",
+                "properties": {
+                  "idDepartamento": {
+                    "type": "string",
+                    "pattern": ".*"
+                  },
+                  "nomeDepartamento": {
+                    "type": "string",
+                    "pattern": ".*"
+                  },
+                  "idLinha": {
+                    "type": "string",
+                    "pattern": ".*"
+                  },
+                  "nomeLinha": {
+                    "type": "string",
+                    "pattern": ".*"
+                  },
+                  "idSubLinha": {
+                    "type": "string",
+                    "pattern": ".*"
+                  },
+                  "nomeSubLinha": {
+                    "type": "string",
+                    "pattern": ".*"
+                  },
+                  "idMenu": {
+                    "type": "string",
+                    "pattern": ".*"
+                  },
+                  "filtro": {
+                    "type": "string",
+                    "pattern": ".*"
+                  },
+                  "origemInterna": {
+                    "type": "string",
+                    "pattern": ".*"
+                  },
+                  "tipoOrigemInterna": {
+                    "type": "string",
+                    "pattern": ".*"
+                  }
+                },
+                "required": [
+                  "idDepartamento",
+                  "nomeDepartamento",
+                  "idLinha",
+                  "nomeLinha",
+                  "idSubLinha",
+                  "nomeSubLinha",
+                  "idMenu",
+                  "filtro"
+                ]
+              }
+            },
+            "required": [
+              "url",
+              "nomePagina",
+              "templatePagina",
+              "tituloPagina",
+              "navegacao"
+            ]
+          }
+        },
+        "required": [
+          "event","pagina"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "event": {
+            "type": "string",
+            "enum": ["update"]
+          },
+          "usuario": {
+            "type": "object",
+            "properties": {
+              "idUsuario": {
+                "type": "string",
+                "pattern": ".*"
+              },
+              "idUnicoVia": {
+                "type": "string",
+                "pattern": ".*"
+              },
+              "statusLogin": {
+                "type": "string",
+                "pattern": "visitante"
+              }
+            },
+            "required": ["statusLogin","idUsuario","idUnicoVia"]
+          }
+        },
+        "required": ["event", "usuario"]
+      }
+    ]
+  }
+}

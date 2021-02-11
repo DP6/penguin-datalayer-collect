@@ -1,18 +1,27 @@
 const fs = require('fs');
 let ajv = require('./bowser-core');
-const { PubSub } = require('@google-cloud/pubsub');
+//const { PubSub } = require('@google-cloud/pubsub');
 const {BigQuery} = require('@google-cloud/bigquery');
+const {Storage} = require('@google-cloud/storage');
 
-exports.bowserjrCollect = (req, res) => {
+
+exports.bowserjrCollect = async  (req, res) => {
     let query = req.query;
 
     //let depara =  {global: "/schema/global", pdp: ["/schema/pdp", "/schema/global/", "/schema/produto-clicado"]};
 
     //depara["pdp"] chamar GCS
+    const storage = new Storage();
+    const bucket = storage.bucket('vv-raft-suite');
+    let file = bucket.file('datalayer-peguin/schemas/camada_global.json');
+
+    //let schema = fs.readFileSync('schema.json');
+    let jsonSchema =  (await file.download())[0].toString();
+    console.log(jsonSchema);
+
     let eventsValid = [];
-    let schema = fs.readFileSync('schema.json');
     req.body.forEach(item => {
-        eventsValid = eventsValid.concat(ajv.validateObject(JSON.parse(schema), item, save));
+        eventsValid = eventsValid.concat(ajv.validateObject(JSON.parse(jsonSchema), item, save));
     })
 
     function save(eventsValid) {

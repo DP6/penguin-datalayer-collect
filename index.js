@@ -6,6 +6,18 @@ const { Storage } = require('@google-cloud/storage');
 const deparaSchema = { produto: ['camada_global.json', 'detalhamento_produto.json'], comprafinalizada: ['camada_global.json', 'compra_efetuada.json'], global: ['camada_global.json'] };
 
 exports.bowserjrCollect = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Credentials', 'true');
+
+  if (req.method === 'OPTIONS') {
+    // Send response to OPTIONS requests
+    res.set('Access-Control-Allow-Methods', 'GET, POST');
+    res.set('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+    res.set('Access-Control-Max-Age', '3600');
+    res.sendStatus(204);
+    return;
+  }
+  
   let query = req.query;
 
   if (!query.ambiente) {

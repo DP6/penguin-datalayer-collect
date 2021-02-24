@@ -15,31 +15,31 @@ exports.bowserjrCollect = async (req, res) => {
     res.set('Access-Control-Allow-Headers', 'Authorization, Content-Type');
     res.set('Access-Control-Max-Age', '3600');
     res.sendStatus(204);
-    return;
-  }
-  
-  let query = req.query;
+  } else {
+    
+    let query = req.query;
 
-  if (!query.ambiente) {
-    return;
-  }
+    if (!query.ambiente) {
+      return;
+    }
 
-  //Pega a lista de schemas do dataLayer para validação com base no template da página
-  let listaSchema = deparaSchema[query.templatePagina];
-  let jsonSchemas = await downloadSchemas(listaSchema || deparaSchema.global);
-  console.log(jsonSchemas);
+    //Pega a lista de schemas do dataLayer para validação com base no template da página
+    let listaSchema = deparaSchema[query.templatePagina];
+    let jsonSchemas = await downloadSchemas(listaSchema || deparaSchema.global);
+    console.log(jsonSchemas);
 
-  let eventsValid = [];
-  jsonSchemas.forEach(schema => {
-    req.body.forEach(eventoDataLayer => {
-      let result = ajv.validateObject(JSON.parse(schema.json), eventoDataLayer, function() {});
-      eventsValid = eventsValid.concat(result);
+    let eventsValid = [];
+    jsonSchemas.forEach(schema => {
+      req.body.forEach(eventoDataLayer => {
+        let result = ajv.validateObject(JSON.parse(schema.json), eventoDataLayer, function() {});
+        eventsValid = eventsValid.concat(result);
+      })
     })
-  })
 
-  const teste = await createSchemaBq(eventsValid, req.query);
-  insertRowsAsStream(teste);
-  res.status(200).send(teste);
+    const teste = await createSchemaBq(eventsValid, req.query);
+    insertRowsAsStream(teste);
+    res.status(200).send(teste);
+  }
 };
 
 async function createSchemaBq(result, queryString) {

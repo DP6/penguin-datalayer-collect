@@ -85,7 +85,7 @@ async function insertRowsAsStream(data) {
   const rows = data;
 
   const options = {
-    schema: 'data: DATETIME, bandeira: STRING, ambiente: STRING, pagina: STRING, templatePagina: STRING, status: STRING, message: STRING, dataLayerObject: STRING, objectName: STRING, keyName: STRING'
+    schema: 'data: DATETIME, bandeira: STRING, ambiente: STRING, pagina: STRING, templatePagina: STRING, device: STRING, status: STRING, message: STRING, dataLayerObject: STRING, objectName: STRING, keyName: STRING'
   };
 
   // Insert data into a table

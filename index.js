@@ -1,11 +1,11 @@
 const fs = require('fs');
-let ajv = require('./bowser-core');
-//const { PubSub } = require('@google-cloud/pubsub');
+const datalayerCore = require('@dp6/peguin-datalayer-core');
 const { BigQuery } = require('@google-cloud/bigquery');
 const { Storage } = require('@google-cloud/storage');
-const deparaSchema = { produto: ['camada_global.json', 'detalhamento_produto.json'], comprafinalizada: ['camada_global.json', 'compra_efetuada.json'], global: ['camada_global.json'] };
+const BUCKET_GCS = process.env.PEGUIN_DATALAYER_BUCKET_GCS;
+let peguinConfig = {};
 
-exports.bowserjrCollect = async (req, res) => {
+exports.peguinDatalayerCollect = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Credentials', 'true');
 
@@ -22,16 +22,19 @@ exports.bowserjrCollect = async (req, res) => {
     if (!query.ambiente) {
       return;
     }
+    
+    peguinConfig = await loadPeguinConfig();
+    const deparaSchema = peguinConfig.DEPARA_SCHEMA;
 
     //Pega a lista de schemas do dataLayer para validação com base no template da página
-    let listaSchema = deparaSchema[query.templatePagina];
+    let listaSchema = deparaSchema[query[peguinConfig.PARAM_QUERY_STRING_SCHEMA]];
     let jsonSchemas = await downloadSchemas(listaSchema || deparaSchema.global);
     console.log(jsonSchemas);
 
     let eventsValid = [];
     jsonSchemas.forEach(schema => {
       req.body.forEach(eventoDataLayer => {
-        let result = ajv.validateObject(JSON.parse(schema.json), eventoDataLayer, function() {});
+        let result = datalayerCore.validate(JSON.parse(schema.json), eventoDataLayer, function() {});
         eventsValid = eventsValid.concat(result);
       })
     })
@@ -53,7 +56,7 @@ async function createSchemaBq(result, queryString) {
 }
 
 function transformarQueryStringInObject(data) {
-  let [date, time] = new Date().toLocaleString('pt-BR').split(' ');
+  let [date, time] = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(' ');
   date = date.split('/');
   let timestamp = `${date[2]}-${date[1]}-${date[0]}T${time}`;
 
@@ -65,27 +68,14 @@ function transformarQueryStringInObject(data) {
   );
 }
 
-async function sendMessage(data) {
-  const pubSubClient = new PubSub();
-
-  async function publishMessage() {
-    const dataBuffer = Buffer.from(JSON.stringify(data));
-
-    const messageId = await pubSubClient.topic(topicName).publish(dataBuffer);
-    console.log(`Message ${messageId} published.`);
-  }
-
-  publishMessage().catch(console.error);
-}
-
 async function insertRowsAsStream(data) {
   const bigquery = new BigQuery();
-  const datasetId = 'dq_raft_suite';
-  const tableId = 'bowserjr_raw';
+  const datasetId = peguinConfig.BQ_DATASET_ID;
+  const tableId = peguinConfig.BQ_TABLE_ID_RAWDATA;
   const rows = data;
 
   const options = {
-    schema: 'data: DATETIME, bandeira: STRING, ambiente: STRING, pagina: STRING, templatePagina: STRING, status: STRING, message: STRING, dataLayerObject: STRING, objectName: STRING, keyName: STRING'
+    schema: peguinConfig.BQ_SCHEMA_RAWDATA
   };
 
   // Insert data into a table
@@ -99,7 +89,7 @@ async function insertRowsAsStream(data) {
 
 async function downloadSchemas(listaSchemas) {
   const storage = new Storage();
-  const bucket = storage.bucket('vv-raft-suite');
+  const bucket = storage.bucket(BUCKET_GCS);
   const jsonSchemas = [];
 
   const promisse =  listaSchemas.map(async nameSchema => {
@@ -111,6 +101,16 @@ async function downloadSchemas(listaSchemas) {
   await Promise.all(promisse);
 
   return jsonSchemas;
+}
+
+async function loadPeguinConfig() {
+  const storage = new Storage();
+  const bucket = storage.bucket(BUCKET_GCS);
+
+  let file = bucket.file(`datalayer-peguin/config.json`);
+  let peguinConfig = (await file.download())[0].toString();
+ 
+  return JSON.parse(peguinConfig);
 }
 
 function insertHandler(err, apiResponse) {

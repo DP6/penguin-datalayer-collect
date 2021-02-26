@@ -1,5 +1,5 @@
 const fs = require('fs');
-const datalayerCore = require('@dp6/peguin-datalayer-core');
+const datalayerCore = require('@dp6/penguin-datalayer-core');
 const { BigQuery } = require('@google-cloud/bigquery');
 const { Storage } = require('@google-cloud/storage');
 const BUCKET_GCS = process.env.PEGUIN_DATALAYER_BUCKET_GCS;

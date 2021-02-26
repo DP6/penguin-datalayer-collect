@@ -1,17 +1,24 @@
 {
-  "name": "bowser-jr-collect",
+  "name": "penguin-datalayer-collect",
   "version": "1.0.0",
-  "description": "",
+  "description": "Validação da camada de dados por Google Cloud Function utilizando o module de validação da DP6 penguin-datalayer-core, código responsável processar o json da camada de dados enviados pelo GTM e persistir o resultado da validação no Bigquery",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
+  "keywords": [
+    "dp6",
+    "raft suite",
+    "penguin datalayer core",
+    "data quality",
+    "gtm",
+    "tagmanager"
+  ],
   "dependencies": {
     "@dp6/penguin-datalayer-core": "0.0.1",
     "@google-cloud/bigquery": "^5.5.0",
-    "@google-cloud/storage": "^5.7.4",
-    "ajv": "^6.10.2"
+    "@google-cloud/storage": "^5.7.4"
   }
 }

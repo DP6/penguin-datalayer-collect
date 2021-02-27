@@ -37,6 +37,8 @@ node_modules/
 # TypeScript v1 declaration files
 typings/
 
+tmp/
+
 # Optional npm cache directory
 .npm
 .vscode

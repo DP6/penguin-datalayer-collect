@@ -1,3 +1,2 @@
 #!/bin/bash
-terraform init terraform/
-terraform apply -auto-approve terraform/
+cd terraform && terraform init && terraform apply -auto-approve

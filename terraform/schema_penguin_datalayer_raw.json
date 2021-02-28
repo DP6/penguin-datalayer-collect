@@ -1,0 +1,32 @@
+[
+    {
+        "name": "data",
+        "type": "DATETIME",
+        "mode": "REQUIRED",
+        "description": "Datatime com timezone America/Sao_Paulo"
+    },
+    {
+        "name": "message",
+        "type": "STRING",
+        "mode": "NULLABLE",
+        "description": "Detalhamento da validação"
+    },
+    {
+        "name": "dataLayerObject",
+        "type": "STRING",
+        "mode": "NULLABLE",
+        "description": "Json da index da camada de dados validado"
+    },
+    {
+        "name": "objectName",
+        "type": "STRING",
+        "mode": "NULLABLE",
+        "description": "Nome do objeto da camada de dados validado se houver"
+    },
+    {
+        "name": "keyName",
+        "type": "STRING",
+        "mode": "NULLABLE",
+        "description": "Chave da camada de dados validada se houver"
+    }
+]

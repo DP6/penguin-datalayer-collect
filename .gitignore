@@ -37,11 +37,18 @@ node_modules/
 # TypeScript v1 declaration files
 typings/
 
+# Aquivos temporários
 tmp/
+
+# Vscode config
+.vscode
+
+#terraform
+.terraform/
+*.tfstate*
 
 # Optional npm cache directory
 .npm
-.vscode
 
 # Optional eslint cache
 .eslintcache

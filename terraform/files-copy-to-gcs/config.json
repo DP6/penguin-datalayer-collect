@@ -1,0 +1,8 @@
+{
+    "DEPARA_SCHEMA": {"produto":["camada_global.json","detalhamento_produto.json"],"comprafinalizada":["camada_global.json","compra_efetuada.json"],"global":["camada_global.json"]},
+    "PARAM_QUERY_STRING_SCHEMA": "templatePagina",
+    "BQ_DATASET_ID": "dq_raft_suite",
+    "BQ_TABLE_ID_RAWDATA": "bowserjr_raw",
+    "BQ_SCHEMA_RAWDATA": "data: DATETIME, templatePagina: STRING, status: STRING, message: STRING, dataLayerObject: STRING, objectName: STRING, keyName: STRING",
+    "PUB_SUB_TOPIC": ""
+}

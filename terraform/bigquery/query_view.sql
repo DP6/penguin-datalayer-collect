@@ -1,0 +1,1 @@
+SELECT FORMAT_DATETIME('%Y%m%d', DATA) as data, CONCAT(objectName, ".", keyName) AS nomeChave, status FROM `${data.google_client_config.current.project}.${var.dataset_id}.${local.bq_table_id}` WHERE keyName IS NOT NULL GROUP BY 1, 2, 3 ORDER BY DATA DESC

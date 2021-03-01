@@ -6,6 +6,12 @@
         "description": "Datatime com timezone America/Sao_Paulo"
     },
     {
+        "name": "status",
+        "type": "STRING",
+        "mode": "NULLABLE",
+        "description": "Status da validação"
+    },
+    {
         "name": "message",
         "type": "STRING",
         "mode": "NULLABLE",

@@ -17,7 +17,7 @@ resource "google_storage_bucket" "my_storage" {
   }
 }
 
-resource "null_resource" "cf_code" {
+resource "null_resource" "cf_code_zip" {
   triggers = {
     on_version_change = var.version-penguin-datalayer-collect
   }
@@ -31,68 +31,79 @@ resource "null_resource" "cf_code" {
 #Configurações bigquery
 ######################################################
 #dataset
-
-module "bigquery" {
-  source            = "terraform-google-modules/bigquery/google"
-  version           = "~> 4.4"
+resource "google_bigquery_dataset" "dataset" {
   location          = var.location
-  project_id        = data.google_client_config.current.project
   dataset_id        = var.dataset_id
-  dataset_name      = "raft_suite"
   description       = "Raft Suite é solução de data quality da DP6, esse dataset contém as tabelas com os dados de monitoramento da ferramenta"
   delete_contents_on_destroy      = true
   
-  dataset_labels = {
+  labels = {
     produto = local.raft_suite_module
   }
+}
 
-  tables = [
-    {
-      table_id    = local.bq_table_id,
-      description = "Tabela com o status da validação das chaves da camada de dados",
-      schema = "bigquery/schema_penguin_datalayer_raw.json",
-      clustering =  ["data"],
-      expiration_time = null,
-      time_partitioning = null,
-      deletion_protection=false,
-      time_partitioning = {
-        type                     = "DAY",
-        field                    = "data",
-        require_partition_filter = false,
-        expiration_ms            = null,
-      },
-      labels = {
-        produto = local.raft_suite_module
-      },
-      deletion_protection = false
+resource "google_bigquery_table" "penguin-datalayer-raw" {
+  dataset_id        = var.dataset_id
+  table_id          = local.bq_table_id
+  description       = "Tabela com o status da validação das chaves da camada de dados"
+  schema            = file("bigquery/schema_penguin_datalayer_raw.json")
+  clustering        =  ["data"]
+  expiration_time    = null
+  deletion_protection = false
+  time_partitioning  {
+    type                     = "DAY"
+    field                    = "data"
+    require_partition_filter = false
+    expiration_ms            = null
+  }
+  labels = {
+    produto = local.raft_suite_module
+  }
+  depends_on = [google_bigquery_dataset.dataset]
+}
+
+data "template_file" "view_aggregation" {
+  template = file("bigquery/query_view_chaves_agregadas.sql")
+  vars = {
+   table_name = "${var.project_id}.${var.dataset_id}.${local.bq_table_id}"
+  }
+}
+
+data "template_file" "view_diagnostic" {
+  template = file("bigquery/query_view_diagnostico.sql")
+  vars = {
+   table_name = "${var.project_id}.${var.dataset_id}.${local.bq_table_id}"
+  }
+}
+
+resource "google_bigquery_table" "view_aggregation" {
+    dataset_id          = var.dataset_id
+    table_id            = local.bq_view_aggregation
+    description         = "View com os dados agregados da tabela ${local.bq_table_id}"
+    deletion_protection = false
+    view {
+      query =  data.template_file.view_aggregation.rendered
+      use_legacy_sql = false 
     }
-  ]
-  views = [
-    {
-      view_id    = local.bq_view_aggregation,
-      description = "View com os dados agregados da tabela ${local.bq_table_id}",
-      use_legacy_sql = false,
-      deletion_protection=false,
-      depends_on  = ["module.bigquery.google_bigquery_table.main[penguin_datalayer_raw]"],
-      query = "SELECT FORMAT_DATETIME('%Y%m%d', DATA) as data, CONCAT(objectName, \".\", keyName) AS nomeChave, status FROM `${var.project_id}.${var.dataset_id}.${local.bq_table_id}` WHERE keyName IS NOT NULL GROUP BY 1, 2, 3 ORDER BY DATA DESC"
-      labels = {
-        produto = local.raft_suite_module
-      },
-      deletion_protection = false
-    },
-    {
-      view_id    = local.bq_view_diagnostic,
-      description = "View com os dados agregados do resultado geral dos erros ${local.bq_table_id}",
-      use_legacy_sql = false,
-      deletion_protection=false,
-      depends_on  = ["module.bigquery.google_bigquery_table.main[penguin_datalayer_raw]"],
-      query = "SELECT DATA, COUNT(distinct keyName) as disparos_erros, COUNTIF(status = \"OK\") as disparos_ok FROM `${var.project_id}.${var.dataset_id}.${local.bq_table_id}` GROUP BY 1 ORDER BY DATA DESC"
-      labels = {
-        produto = local.raft_suite_module
-      },
-      deletion_protection = false
+    labels = {
+      produto = local.raft_suite_module
     }
-  ]
+    depends_on = [google_bigquery_dataset.dataset, google_bigquery_table.penguin-datalayer-raw]
+}
+
+resource "google_bigquery_table" "view_diagnostic" {
+    dataset_id          = var.dataset_id
+    table_id            = local.bq_view_diagnostic
+    description         = "View com os dados agregados do resultado geral dos erros ${local.bq_table_id}"
+    deletion_protection = false
+    view {
+      query =  data.template_file.view_diagnostic.rendered
+      use_legacy_sql = false
+    }
+    labels = {
+      produto = local.raft_suite_module
+    }
+    depends_on = [google_bigquery_dataset.dataset, google_bigquery_table.penguin-datalayer-raw]
 }
 
 ##################################
@@ -115,6 +126,7 @@ resource "google_cloudfunctions_function" "function" {
    environment_variables = {
     PENGUIN_DATALAYER_BUCKET_GCS = var.bucket_name
   }
+  depends_on = [null_resource.cf_code_zip]
 }
 
 # IAM entry for all users to invoke the function

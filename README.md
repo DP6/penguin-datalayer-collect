@@ -1,6 +1,19 @@
-# ![DP6](./docs/dist/logo-dp6-cor.png)penguin-datalayer-collect
 
-O penguin-datalayer-collect é um modulo do ecossitema raf-suite criado pela DP6 para garantir a qualidade dos dados ([Data Quality](https://en.wikipedia.org/wiki/Data_quality)) nos projetos de engenharia de dados implementados nos clientes da DP6, atráves de monitoramento e pipe-lines automatizadas de dados.
+<p align="center">
+  <a href="#badge">
+    <img alt="semantic-release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
+  </a>
+  <a href="https://www.npmjs.com/package/dp6@penguin-datalayer-collect">
+    <img alt="npm latest version" src="https://img.shields.io/npm/v/@dp6/penguin-datalayer-core/latest.svg">
+  </a>
+</p>
+<div align="center">
+<img src="./docs/dist/logo-dp6-cor.png" height="100" />
+
+# penguin-datalayer-collect
+</div>
+
+O penguin-datalayer-collect é um modulo do ecossitema raf-suite criado pela DP6 para garantir a qualidade dos dados ([Data Quality](https://en.wikipedia.org/wiki/Data_quality)) nos projetos de engenharia de dados implementados nos clientes da DP6, através de monitoramento e pipelines automatizadas de dados.
 
 ## Ecossistema raft-suite
 ![DP6](./docs/dist/abrangencia-ecossistema-raft-suite.jpg)

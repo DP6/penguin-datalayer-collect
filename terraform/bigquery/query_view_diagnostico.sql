@@ -1,0 +1,1 @@
+SELECT DATA, COUNT(distinct keyName) as disparos_erros, COUNTIF(status = "OK") as disparos_ok FROM `${var.project_id}.${var.dataset_id}.${local.bq_table_id}` GROUP BY 1 ORDER BY DATA DESC

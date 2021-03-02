@@ -46,7 +46,7 @@ tmp/
 #terraform
 .terraform/
 *.tfstate*
-.terraform/files-copy-to-gcs/*.zip
+*.zip
 
 # Optional npm cache directory
 .npm

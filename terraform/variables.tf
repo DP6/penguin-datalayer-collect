@@ -6,7 +6,8 @@ locals {
   cf_entry_point = "peguinDatalayerCollect"
   raft_suite_module = "penguin-datalayer-collect"
   bq_table_id = "penguin_datalayer_raw"
-  bq_view = "penguin_datalayer_aggregation_view"
+  bq_view_aggregation = "penguin_datalayer_aggregation_view"
+  bq_view_diagnostic = "penguin_datalayer_diagnostic_view"
   git_zip_souce_code =  "https://codeload.github.com/DP6/penguin-datalayer-collect/zip/"
 }
 
@@ -32,5 +33,22 @@ variable "version-penguin-datalayer-collect" {
 
 variable "project_id" {
     type = string
-    description = "Id do projeto no GCP que moduke será instalado"
+    description = "Id do projeto no GCP que modulo penguin-datalayer-collect será instalado"
+}
+
+variable "region" {
+    type = string
+    description = "Região do GCP onde os modulos do projeto serão criados https://cloud.google.com/compute/docs/regions-zones?hl=pt-br default us-central1"
+    default = "us-central1"
+}
+
+variable "location" {
+    type = string
+    description = "Local onde os modulos do projeto serão criados https://cloud.google.com/compute/docs/regions-zones?hl=pt-br default us"
+    default = "us"
+}
+
+variable "service_account_email" {
+    type = string
+    description = "Service account que será utilizadas pelo modulo penguin-datalayer-collect, as permissões necessárias são: Storage Object Admin, Cloud Functions Admin, BigQuery Admin e Service Account User"
 }

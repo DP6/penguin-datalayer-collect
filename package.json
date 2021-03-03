@@ -3,11 +3,21 @@
   "private": "true",
   "version": "1.0.0",
   "description": "Validação da camada de dados por Google Cloud Function utilizando o module de validação da DP6 penguin-datalayer-core, código responsável processar o json da camada de dados enviados pelo GTM e persistir o resultado da validação no Bigquery",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DP6/penguin-datalayer-collect.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "DP6",
+  "contributors": [
+    {
+      "name": "Joaquim Neto",
+      "email": "contato@joaquimsn.com"
+    }
+  ],
   "license": "ISC",
   "keywords": [
     "dp6",
@@ -17,6 +27,13 @@
     "gtm",
     "tagmanager"
   ],
+  "bugs": {
+    "url": "https://github.com/DP6/penguin-datalayer-collect/issues"
+  },
+  "homepage": "https://github.com/DP6/penguin-datalayer-collect#readme",
+  "release": {
+    "branch": "master"
+  },
   "dependencies": {
     "@dp6/penguin-datalayer-core": "0.0.1",
     "@google-cloud/bigquery": "^5.5.0",

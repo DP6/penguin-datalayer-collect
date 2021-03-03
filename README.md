@@ -1,14 +1,16 @@
+<div align="center">
+<img src="https://raw.githubusercontent.com/DP6/penguin-datalayer-collect/master/docs/dist/centro_de_inovacao_dp6.png"  />
 
+# 
+ <tile style="font-size: 32pt">penguin-datalayer-collect</tile>
+
+# 
+</div>
 <p align="center">
   <a href="#badge">
     <img alt="semantic-release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
   </a>
 </p>
-<div align="center">
-<img src="https://raw.githubusercontent.com/DP6/penguin-datalayer-collect/master/docs/dist/logo-dp6-cor.png" height="100" />
-
-# penguin-datalayer-collect
-</div>
 
 O penguin-datalayer-collect é um modulo do ecossitema raf-suite criado pela DP6 para garantir a qualidade dos dados ([Data Quality](https://en.wikipedia.org/wiki/Data_quality)) nos projetos de engenharia de dados implementados nos clientes da DP6, através de monitoramento e pipelines automatizadas de dados.
 
@@ -112,13 +114,18 @@ TODO
 TODO
 
 ## 6. Como contribuir
-TODO
-### 6.1 Referências
-* https://www.conventionalcommits.org/en/v1.0.0/
-* https://github.com/semantic-release/semantic-release
+Pull requests são bem-vindos! Nós vamos adorar ajuda para evoluir esse modulo. Senta-se livre para navegar por open issues buscando por algo que possa fazer. Caso temha uma nova feature ou bug, por favor abra uma nova issue para ser acompanhada pelo nosso time.
 
-Power by: DP6 Koopa-troopa Team
-Suporte: koopas@dp6.com.br
+### 6.1 Requisitos obrigatórios
+Só serão aceito as contribuições que estiverem seguindo os seguintes requisitos:
+
+* [Padrão de commit](https://www.conventionalcommits.org/en/v1.0.0/)
+
+## Suporte: 
+
+**DP6 Koopa-troopa Team**
+
+*e-mail: <koopas@dp6.com.br>*
 
 <img src="https://raw.githubusercontent.com/DP6/penguin-datalayer-collect/master/docs/dist/koopa.png" height="100" />
 

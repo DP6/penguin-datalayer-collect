@@ -2,7 +2,7 @@
 <img src="https://raw.githubusercontent.com/DP6/penguin-datalayer-collect/master/docs/dist/centro_de_inovacao_dp6.png"  />
 
 # 
- <tile style="font-size: 32pt">penguin-datalayer-collect</tile>
+ <tile style="font-size: 60pt">penguin-datalayer-collect</tile>
 
 # 
 </div>

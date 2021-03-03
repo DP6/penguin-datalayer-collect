@@ -3,12 +3,9 @@
   <a href="#badge">
     <img alt="semantic-release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
   </a>
-  <a href="https://www.npmjs.com/package/dp6@penguin-datalayer-collect">
-    <img alt="npm latest version" src="https://img.shields.io/npm/v/@dp6/penguin-datalayer-core/latest.svg">
-  </a>
 </p>
 <div align="center">
-<img src="./docs/dist/logo-dp6-cor.png" height="100" />
+<img src="https://raw.githubusercontent.com/DP6/penguin-datalayer-collect/master/docs/dist/logo-dp6-cor.png" height="100" />
 
 # penguin-datalayer-collect
 </div>
@@ -16,7 +13,7 @@
 O penguin-datalayer-collect é um modulo do ecossitema raf-suite criado pela DP6 para garantir a qualidade dos dados ([Data Quality](https://en.wikipedia.org/wiki/Data_quality)) nos projetos de engenharia de dados implementados nos clientes da DP6, através de monitoramento e pipelines automatizadas de dados.
 
 ## Ecossistema raft-suite
-![DP6](./docs/dist/abrangencia-ecossistema-raft-suite.jpg)
+![DP6](https://raw.githubusercontent.com/DP6/penguin-datalayer-collect/master/docs/dist/abrangencia-ecossistema-raft-suite.jpg)
 
 
 # Setup penguin-datalayer-collect
@@ -49,8 +46,12 @@ sh terraform_deploy.sh
 ```
 
 ## 3. Configurando a tag no GTM
+### 3.1 GTM Web
+Para enviar o JSON da camada de dados para a Cloud Function de validação, é necessário implementar uma tag no GTM do tipo custom html, abaixo está o código base para essa configuração.
 
-TODO
+Essa tag dar total autonomia para o engenheiro customizar o escopo da coleta da camada de dados para validação, uma coleta ativa para o ambiente de produção considerando todos os usuários terá um custo muito maior que uma baseada em amostragem, como exemplificado no código abaixo.
+
+Outra abordagem que pode ser utilizada é fazer a coleta somente no ambiente de homologação, com base em identificadores previamente acordados com o time de TI.
 
 ```html
 <script>
@@ -59,9 +60,9 @@ TODO
 	*/
 	analyticsHelper.safeFn('Penguin Datalayer Collect ', function(helper){
 		// Array do dataLyer configurado para o GTM
-		var body = dataLayer;
+		var body = window.dataLayer;
 
-		if (helper.cookie('penguin_datalayer_collect') === 'true') {
+		if (habilitarAmostragemValidacao() === 'true') {
 			var request = new XMLHttpRequest();
 			request.open("POST", {{endpoint - penguin-datalayer - collect}} + "?schema="+ {{schema}} , true); // Os dados de validação podem ser enriquecidos com dados de negocios enviados como queryString
 			request.setRequestHeader('Content-Type', 'application/json');
@@ -75,17 +76,18 @@ TODO
 				max = Math.floor(max);
 				return Math.floor(Math.random() * (max - min)) + min;
 			}
-				var sample = 1;
-				var domain = {{Cookie - Domínio}} ? {{Cookie - Domínio}} : 'auto';
-				
-				if (!helper.cookie('penguin_datalayer_collect')) {
-					if (random(0, 100) <= sample) {
-						helper.cookie('penguin_datalayer_collect', 'true', {'exdays': 1, 'domain': domain});
-					} else {
-						helper.cookie('penguin_datalayer_collect', 'false', {'exdays': 1, 'domain': domain});
-					}
-				}
+
+			var sample = 1;
+			var domain = {{Cookie - Domínio}} ? {{Cookie - Domínio}} : 'auto';
+			var cookie_penguin_datalayer_collect = helper.cookie('penguin_datalayer_collect');
+			
+			// Limitador realizar o envio apenas de uma amostragem dos usuários, assim é possível reduzir os custos de GCP, não deixando a tag ativas para todos os usuários.
+			if (!cookie_penguin_datalayer_collect) {
+				cookie_penguin_datalayer_collect = (random(0, 100) <= sample) ? 'true' : 'false';
+				helper.cookie('penguin_datalayer_collect', cookie_penguin_datalayer_collect, {'exdays': 1, 'domain': domain});
 			}
+
+			return cookie_penguin_datalayer_collect;
 		}
 
 		function logHttpResponse() {
@@ -95,9 +97,13 @@ TODO
 				console.log(JSON.stringify(window.dataLayer));
 			}
 		}
-   });
+	});
 </script>
 ```
+O código da tag fornecido acima, utiliza a biblioteca [easy-collect](https://github.com/DP6/easy-collect) também desenvolvida pela DP6 para facilitar a implementação no GTM e manipulação do DOM.
+
+### 3.2 GTM Server-side
+O penguin-datalayer-collect também pode ser utilizado para validar a coleta server-side, necessitando apenas que a coleta consiga gerar um array com as chaves implementadas.
 
 ## 4. Enriquecendos os dados com informações de negócio 
 TODO 
@@ -114,5 +120,5 @@ TODO
 Power by: DP6 Koopa-troopa Team
 Suporte: koopas@dp6.com.br
 
-<img src="./docs/dist/koopa.jpg" height="100" />
+<img src="https://raw.githubusercontent.com/DP6/penguin-datalayer-collect/master/docs/dist/koopa.png" height="100" />
 

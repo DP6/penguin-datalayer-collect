@@ -1,5 +1,6 @@
 {
   "name": "penguin-datalayer-collect",
+  "private": "true",
   "version": "1.0.0",
   "description": "Validação da camada de dados por Google Cloud Function utilizando o module de validação da DP6 penguin-datalayer-core, código responsável processar o json da camada de dados enviados pelo GTM e persistir o resultado da validação no Bigquery",
   "main": "index.js",

@@ -1,10 +1,10 @@
 <div align="center">
 <img src="https://raw.githubusercontent.com/DP6/penguin-datalayer-collect/master/docs/dist/centro_de_inovacao_dp6.png"  />
 
-# 
- <tile style="font-size: 60pt">penguin-datalayer-collect</tile>
+<br>
 
-# 
+# penguin-datalayer-collect
+
 </div>
 <p align="center">
   <a href="#badge">
@@ -57,49 +57,49 @@ Outra abordagem que pode ser utilizada é fazer a coleta somente no ambiente de 
 
 ```html
 <script>
-	/*
-	*Tag responsável por enviar a camada de dados para o Penguin-datalayer-collect
-	*/
-	analyticsHelper.safeFn('Penguin Datalayer Collect ', function(helper){
-		// Array do dataLyer configurado para o GTM
-		var body = window.dataLayer;
+    /*
+    *Tag responsável por enviar a camada de dados para o Penguin-datalayer-collect
+    */
+    analyticsHelper.safeFn('Penguin Datalayer Collect ', function(helper){
+        // Array do dataLyer configurado para o GTM
+        var body = window.dataLayer;
 
-		if (habilitarAmostragemValidacao() === 'true') {
-			var request = new XMLHttpRequest();
-			request.open("POST", {{endpoint - penguin-datalayer - collect}} + "?schema="+ {{schema}} , true); // Os dados de validação podem ser enriquecidos com dados de negocios enviados como queryString
-			request.setRequestHeader('Content-Type', 'application/json');
-			request.onreadystatechange = logHttpResponse;
-			request.send(JSON.stringify(body));
-		}
+        if (habilitarAmostragemValidacao() === 'true') {
+            var request = new XMLHttpRequest();
+            request.open("POST", {{endpoint - penguin-datalayer - collect}} + "?schema="+ {{schema}} , true); // Os dados de validação podem ser enriquecidos com dados de negocios enviados como queryString
+            request.setRequestHeader('Content-Type', 'application/json');
+            request.onreadystatechange = logHttpResponse;
+            request.send(JSON.stringify(body));
+        }
 
-		function habilitarAmostragemValidacao() {
-			function random(min, max) {
-				min = Math.ceil(min);
-				max = Math.floor(max);
-				return Math.floor(Math.random() * (max - min)) + min;
-			}
+        function habilitarAmostragemValidacao() {
+            function random(min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min)) + min;
+            }
 
-			var sample = 1;
-			var domain = {{Cookie - Domínio}} ? {{Cookie - Domínio}} : 'auto';
-			var cookie_penguin_datalayer_collect = helper.cookie('penguin_datalayer_collect');
-			
-			// Limitador realizar o envio apenas de uma amostragem dos usuários, assim é possível reduzir os custos de GCP, não deixando a tag ativas para todos os usuários.
-			if (!cookie_penguin_datalayer_collect) {
-				cookie_penguin_datalayer_collect = (random(0, 100) <= sample) ? 'true' : 'false';
-				helper.cookie('penguin_datalayer_collect', cookie_penguin_datalayer_collect, {'exdays': 1, 'domain': domain});
-			}
+            var sample = 1;
+            var domain = {{Cookie - Domínio}} ? {{Cookie - Domínio}} : 'auto';
+            var cookie_penguin_datalayer_collect = helper.cookie('penguin_datalayer_collect');
+            
+            // Limitador realizar o envio apenas de uma amostragem dos usuários, assim é possível reduzir os custos de GCP, não deixando a tag ativas para todos os usuários.
+            if (!cookie_penguin_datalayer_collect) {
+                cookie_penguin_datalayer_collect = (random(0, 100) <= sample) ? 'true' : 'false';
+                helper.cookie('penguin_datalayer_collect', cookie_penguin_datalayer_collect, {'exdays': 1, 'domain': domain});
+            }
 
-			return cookie_penguin_datalayer_collect;
-		}
+            return cookie_penguin_datalayer_collect;
+        }
 
-		function logHttpResponse() {
-			if ({{Debug Mode}}) {
-				console.log('Penguin-datalayer-collect - Status: ', this.status);
-				console.log('Penguin-datalayer-collect - Object dataLayer:', window.dataLayer);
-				console.log(JSON.stringify(window.dataLayer));
-			}
-		}
-	});
+        function logHttpResponse() {
+            if ({{Debug Mode}}) {
+                console.log('Penguin-datalayer-collect - Status: ', this.status);
+                console.log('Penguin-datalayer-collect - Object dataLayer:', window.dataLayer);
+                console.log(JSON.stringify(window.dataLayer));
+            }
+        }
+    });
 </script>
 ```
 O código da tag fornecido acima, utiliza a biblioteca [easy-collect](https://github.com/DP6/easy-collect) também desenvolvida pela DP6 para facilitar a implementação no GTM e manipulação do DOM.

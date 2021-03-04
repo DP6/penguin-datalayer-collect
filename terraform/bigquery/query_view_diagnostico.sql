@@ -1,5 +1,5 @@
 SELECT
-    DATA,
+    data,
     COUNT(distinct keyName) as disparos_erros,
     COUNTIF(status = "OK") as disparos_ok
 FROM

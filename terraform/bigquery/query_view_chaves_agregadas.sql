@@ -1,5 +1,5 @@
 SELECT
-    FORMAT_DATETIME('%Y%m%d', DATA) as data,
+    FORMAT_DATETIME('%Y%m%d', data) as data,
     CONCAT(objectName, ".", keyName) AS nomeChave,
     status
 FROM

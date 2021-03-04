@@ -1,7 +1,7 @@
 
 # penguin-datalayer-collect
 <div align="center">
-<img src="https://raw.githubusercontent.com/DP6/penguin-datalayer-collect/master/docs/dist/centro_de_inovacao_dp6.png" height="100px" />
+<img src="https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/centro_de_inovacao_dp6.png" height="100px" />
 
 </div>
 <p align="center">
@@ -13,7 +13,7 @@
 O penguin-datalayer-collect é um modulo do ecossitema raf-suite criado pela DP6 para garantir a qualidade dos dados ([Data Quality](https://en.wikipedia.org/wiki/Data_quality)) nos projetos de engenharia de dados implementados nos clientes da DP6, através de monitoramento e pipelines automatizadas de dados.
 
 ## Ecossistema raft-suite
-![DP6](https://raw.githubusercontent.com/DP6/penguin-datalayer-collect/master/docs/dist/abrangencia-ecossistema-raft-suite.jpg)
+![DP6](https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/abrangencia-ecossistema-raft-suite.jpg)
 
 
 # Setup penguin-datalayer-collect
@@ -130,5 +130,5 @@ Só serão aceito as contribuições que estiverem seguindo os seguintes requisi
 
 *e-mail: <koopas@dp6.com.br>*
 
-<img src="https://raw.githubusercontent.com/DP6/penguin-datalayer-collect/master/docs/dist/koopa.png" height="100" />
+<img src="https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/koopa.png" height="100" />
 

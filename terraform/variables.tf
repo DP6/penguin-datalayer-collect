@@ -28,12 +28,13 @@ variable "dataset_id" {
 
 variable "version-penguin-datalayer-collect" {
     type = string
-    description = "Versão do modulo que será utilizada para saber quais versões estão disponíveis acesse https://github.com/DP6/penguin-datalayer-collect/tags"
+    description = "Default versão local parâmetro recebe local, para escolher uma versão diferente da atual acesse https://github.com/DP6/penguin-datalayer-collect/tags"
+    default = "local"
 }
 
 variable "project_id" {
     type = string
-    description = "Id do projeto no GCP que modulo penguin-datalayer-collect será instalado"
+    description = "Id do projeto do GCP onde o modulo penguin-datalayer-collect será instalado"
 }
 
 variable "region" {
@@ -44,7 +45,7 @@ variable "region" {
 
 variable "location" {
     type = string
-    description = "Local onde os modulos do projeto serão criados https://cloud.google.com/compute/docs/regions-zones?hl=pt-br default us"
+    description = "Localização do projeto GCP https://cloud.google.com/compute/docs/regions-zones?hl=pt-br default us"
     default = "us"
 }
 

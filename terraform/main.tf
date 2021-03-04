@@ -23,8 +23,10 @@ resource "null_resource" "cf_code_zip" {
   }
 
   provisioner "local-exec" {
-    command = "sh download-penguin-datalayer-collect.sh ${var.version-penguin-datalayer-collect} ${var.bucket_name}"
+    command = "sh scripts/${var.version-penguin-datalayer-collect != "local" ? "download-penguin-datalayer-collect.sh" : "using-local-penguin-datalayer-collect.sh"} ${var.version-penguin-datalayer-collect} ${var.bucket_name}"
   }
+
+  depends_on = [google_storage_bucket.my_storage]
 }
 
 ######################################################
@@ -122,7 +124,6 @@ resource "google_cloudfunctions_function" "function" {
   source_archive_object = "${local.raft_suite_module}/${var.version-penguin-datalayer-collect}.zip"
   trigger_http          = true
   entry_point           = local.cf_entry_point
-
    environment_variables = {
     PENGUIN_DATALAYER_BUCKET_GCS = var.bucket_name
   }

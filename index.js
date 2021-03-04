@@ -11,8 +11,8 @@ exports.peguinDatalayerCollect = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Credentials', 'true');
 
+  // Liberação de CROS
   if (req.method === 'OPTIONS') {
-    // Send response to OPTIONS requests
     res.set('Access-Control-Allow-Methods', 'GET, POST');
     res.set('Access-Control-Allow-Headers', 'Authorization, Content-Type');
     res.set('Access-Control-Max-Age', '3600');
@@ -34,32 +34,44 @@ exports.peguinDatalayerCollect = async (req, res) => {
     let jsonSchemas = await downloadSchemas(listaSchema || deparaSchema.global);
     trace(jsonSchemas);
 
-    let eventsValid = [];
+    let result = [];
     jsonSchemas.forEach(schema => {
       req.body.forEach(eventoDataLayer => {
-        let result = datalayerCore.validate(JSON.parse(schema.json), eventoDataLayer, function() {});
-        eventsValid = eventsValid.concat(result);
+        let eventsValid = datalayerCore.validate(JSON.parse(schema.json), eventoDataLayer, function() {});
+         result = result.concat(createSchemaBq(eventsValid, query, `${query[peguinConfig.PARAM_QUERY_STRING_SCHEMA]}:${schema.name}`));
       })
-    })
+    });
 
-    const result = await createSchemaBq(eventsValid, query);
-    trace(result)
+    trace(result);
     insertRowsAsStream(result);
 
     res.status(200).send(debugging ? result : 'sucesso!');
   }
 };
 
-async function createSchemaBq(result, queryString) {
+/**
+ * Monta as linhas para serem inseridas no BQ
+ * @param {Array} result Status das chaves validadas
+ * @param {} queryString 
+ * @param {*} schemaName Identificação do schema usado para validação
+ * @returns {Array} Dados estruturados para o BQ
+ */
+function createSchemaBq(result, queryString, schemaName) {
   const schemaBQ = [];
+  const schema = {schema: schemaName}
   const objectQuery = transformarQueryStringInObject(queryString);
   result.forEach(item => {
-    schemaBQ.push({...objectQuery, ...item});
+    schemaBQ.push({...objectQuery, ...schema,...item});
   });
 
   return schemaBQ;
 }
 
+/**
+ * Unifica todos os atributos de todos os objetos do array em um único objeto
+ * @param {Array} data Array de objetos 
+ * @returns {Object} Objeto com todos as atributos unificados
+ */
 function transformarQueryStringInObject(data) {
   let [date, time] = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(' ');
   date = date.split('/');
@@ -73,6 +85,10 @@ function transformarQueryStringInObject(data) {
   );
 }
 
+/**
+ * Realiza a persistências dos dados por Stream no BigQuery
+ * @param {Array} data Dados estruturados no padrão de persistência do BQ
+ */
 async function insertRowsAsStream(data) {
   const bigquery = new BigQuery();
   const datasetId = peguinConfig.BQ_DATASET_ID;
@@ -92,12 +108,17 @@ async function insertRowsAsStream(data) {
   console.log(`Inserted ${rows.length} rows`);
 }
 
-async function downloadSchemas(listaSchemas) {
+/**
+ * Baixa os arquivos .json do GSC para serem usados na validação dataLayer
+ * @param {Array} listSchemaNames Contendo o nome dos arquivos
+ * @returns {Array} De Schemas de validação
+ */
+async function downloadSchemas(listSchemaNames) {
   const storage = new Storage();
   const bucket = storage.bucket(BUCKET_GCS);
   const jsonSchemas = [];
 
-  const promisse =  listaSchemas.map(async nameSchema => {
+  const promisse =  listSchemaNames.map(async nameSchema => {
     let file = bucket.file(`${FOLDER_PENGUIN}/schemas/${nameSchema}`);
     let json = (await file.download())[0].toString();
     jsonSchemas.push({name: nameSchema, json: json});
@@ -108,6 +129,9 @@ async function downloadSchemas(listaSchemas) {
   return jsonSchemas;
 }
 
+/**
+ * Carrega o arquivo de configuração armazenado no GCS
+ */
 async function loadPeguinConfig() {
   const storage = new Storage();
   const bucket = storage.bucket(BUCKET_GCS);
@@ -124,8 +148,12 @@ function insertHandler(err, apiResponse) {
   }
 }
 
+/**
+ * Enviado o log para o stdout, se somente se, a variável debugging = true 
+ * @param {Object} log Que será apresentado no stdout 
+ */
 function trace(log) {
   if (debugging) {
-    console.log(log)
+    console.log(log);
   }
 }

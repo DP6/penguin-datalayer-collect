@@ -18,10 +18,10 @@
         "description": "Detalhamento da validação"
     },
     {
-        "name": "dataLayerObject",
+        "name": "schema",
         "type": "STRING",
         "mode": "NULLABLE",
-        "description": "Json da index da camada de dados validado"
+        "description": "Nome do schema utilizado para validação da chave"
     },
     {
         "name": "objectName",

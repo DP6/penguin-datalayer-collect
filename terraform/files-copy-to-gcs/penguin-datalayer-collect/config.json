@@ -3,6 +3,6 @@
     "PARAM_QUERY_STRING_SCHEMA": "schema",
     "BQ_DATASET_ID": "dq_raft_suite",
     "BQ_TABLE_ID_RAWDATA": "bowserjr_raw",
-    "BQ_SCHEMA_RAWDATA": "data: DATETIME, schema: STRING, status: STRING, message: STRING, dataLayerObject: STRING, objectName: STRING, keyName: STRING",
+    "BQ_SCHEMA_RAWDATA": "data: DATETIME, schema: STRING, status: STRING, message: STRING, schema: STRING, objectName: STRING, keyName: STRING",
     "PUB_SUB_TOPIC": ""
 }

@@ -1,9 +1,7 @@
-<div align="center">
-<img src="https://raw.githubusercontent.com/DP6/penguin-datalayer-collect/master/docs/dist/centro_de_inovacao_dp6.png"  />
-
-<br>
 
 # penguin-datalayer-collect
+<div align="center">
+<img src="https://raw.githubusercontent.com/DP6/penguin-datalayer-collect/master/docs/dist/centro_de_inovacao_dp6.png" height="100px" />
 
 </div>
 <p align="center">
@@ -34,8 +32,10 @@ O penguin-datalayer-collect é um modulo do ecossitema raf-suite criado pela DP6
 4. Variável [GOOGLE_APPLICATION_CREDENTIALS](https://cloud.google.com/docs/authentication/getting-started#setting_the_environment_variable)
 5. Instalar o [Terraform](https://www.terraform.io/downloads.html)
 
-*Observação:* Utilizando o ambiente no [Google Cloud Shell](https://cloud.google.com/shell/docs) não é necessário fazer os **1** e **4**
+*Observação:* Utilizando o ambiente no [Google Cloud Shell](https://cloud.google.com/shell/docs) não é necessário fazer os **1**, **2**, **4** e **5**
 
+### 1.3 Ludwig gerador de Schemas
+TODO
 ## 2. Instalando o penguin-datalayer-core
 Clonando o projeto git
 ```console
@@ -121,6 +121,9 @@ Só serão aceito as contribuições que estiverem seguindo os seguintes requisi
 
 * [Padrão de commit](https://www.conventionalcommits.org/en/v1.0.0/)
 
+
+### 7. Api Docs
+* [Index.js](https://github.com/dp6/penguin-datalayer-collect/blob/master/docs/index.md)
 ## Suporte: 
 
 **DP6 Koopa-troopa Team**

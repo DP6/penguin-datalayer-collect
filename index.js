@@ -25,7 +25,7 @@ exports.peguinDatalayerCollect = async (req, res) => {
       return;
     }
     
-    peguinConfig = await loadPeguinConfig();
+    peguinConfig = await loadPenguinConfig();
     const deparaSchema = peguinConfig.DEPARA_SCHEMA;
 
     //Pega a lista de schemas do dataLayer para validação 
@@ -52,8 +52,8 @@ exports.peguinDatalayerCollect = async (req, res) => {
 /**
  * Monta as linhas para serem inseridas no BQ
  * @param {Array} result Status das chaves validadas
- * @param {} queryString 
- * @param {*} schemaName Identificação do schema usado para validação
+ * @param {Object} queryString 
+ * @param {String} schemaName Identificação do schema usado para validação
  * @returns {Array} Dados estruturados para o BQ
  */
 function createSchemaBq(result, queryString, schemaName) {
@@ -132,7 +132,7 @@ async function downloadSchemas(listSchemaNames) {
 /**
  * Carrega o arquivo de configuração armazenado no GCS
  */
-async function loadPeguinConfig() {
+async function loadPenguinConfig() {
   const storage = new Storage();
   const bucket = storage.bucket(BUCKET_GCS);
 

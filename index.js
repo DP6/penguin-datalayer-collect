@@ -1,4 +1,3 @@
-const fs = require('fs');
 const datalayerCore = require('@dp6/penguin-datalayer-core');
 const { BigQuery } = require('@google-cloud/bigquery');
 const { Storage } = require('@google-cloud/storage');
@@ -18,6 +17,7 @@ exports.penguinDatalayerCollect = async (req, res) => {
     res.set('Access-Control-Max-Age', '3600');
     res.sendStatus(204);
   } else {
+    penguinConfig = await loadPenguinConfig();
     let query = req.query;
     debugging = query.debugging; //Se true habilita o log do json de validação 
 
@@ -25,9 +25,8 @@ exports.penguinDatalayerCollect = async (req, res) => {
       return;
     }
     
-    penguinConfig = await loadPenguinConfig();
-    const deparaSchema = penguinConfig.DEPARA_SCHEMA;
-
+    deparaSchema = penguinConfig.DEPARA_SCHEMA;
+    
     //Pega a lista de schemas do dataLayer para validação 
     //com base schema informado na requisição, caso contrário usa o default
     let listaSchema = deparaSchema[query[penguinConfig.PARAM_QUERY_STRING_SCHEMA]];

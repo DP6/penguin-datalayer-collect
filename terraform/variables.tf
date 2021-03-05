@@ -3,7 +3,7 @@
 #######################################
 locals {
   cf_name = "penguin-datalayer-collect"
-  cf_entry_point = "peguinDatalayerCollect"
+  cf_entry_point = "penguinDatalayerCollect"
   raft_suite_module = "penguin-datalayer-collect"
   bq_table_id = "penguin_datalayer_raw"
   bq_view_aggregation = "penguin_datalayer_aggregation_view"

@@ -6,10 +6,10 @@ const FOLDER_PENGUIN = 'penguin-datalayer-collect'
 let penguinConfig = {};
 let debugging = false;
 
-exports.penguinDatalayerCollect = async (req, res) => {
+const penguinDatalayerCollect = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Credentials', 'true');
-
+  
   // Liberação de CROS
   if (req.method === 'OPTIONS') {
     res.set('Access-Control-Allow-Methods', 'GET, POST');
@@ -25,6 +25,7 @@ exports.penguinDatalayerCollect = async (req, res) => {
 
     // Verificação se o identificado de schema foi passado por parâmetro
     if (!query[penguinConfig.PARAM_QUERY_STRING_SCHEMA]) {
+      res.status(400).send(`${penguinConfig.PARAM_QUERY_STRING_SCHEMA} não informado como parâmetro queryString`)
       return;
     }
     
@@ -58,7 +59,7 @@ exports.penguinDatalayerCollect = async (req, res) => {
 function createSchemaBq(result, queryString, schemaName) {
   const schemaBQ = [];
   const schema = {schema: schemaName}
-  const objectQuery = transformarQueryStringInObject(queryString);
+  const objectQuery = addTimestamp(queryString);
   result.forEach(item => {
     schemaBQ.push({...objectQuery, ...schema,...item});
   });
@@ -67,21 +68,16 @@ function createSchemaBq(result, queryString, schemaName) {
 }
 
 /**
- * Unifica todos os atributos de todos os objetos do array em um único objeto
- * @param {Array} data Array de objetos 
- * @returns {Object} Objeto com todos as atributos unificados
+ * Adiciona o atributo data para o objeto, contendo o timestamp do momento da execução
+ * @param {Object} data Objeto
+ * @returns {Object} Objeto com o atributo no padrão yyyy-mm-ddThh:mm:ss
  */
-function transformarQueryStringInObject(data) {
+function addTimestamp(data) {
   let [date, time] = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split(' ');
   date = date.split('/');
   let timestamp = `${date[2]}-${date[1]}-${date[0]}T${time}`;
-
-  return Object.keys(data).reduce(
-    (obj, item) => ((obj[item] = data[item]), obj),
-    {
-      data: timestamp
-    }
-  );
+  data.data = timestamp;
+  return data;
 }
 
 /**
@@ -154,4 +150,13 @@ function trace(log) {
   if (debugging) {
     console.log(log);
   }
+}
+
+module.exports = {
+  createSchemaBq,
+  addTimestamp, 
+  downloadSchemas,
+  loadPenguinConfig,
+  insertRowsAsStream,
+  penguinDatalayerCollect
 }

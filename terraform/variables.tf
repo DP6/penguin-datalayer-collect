@@ -16,8 +16,7 @@ locals {
 #######################################
 variable "bucket_name" {
     type        = string
-    description = "Google Cloud Storage Bucket to create, recomendado raft-suite"
-    default     =  "raft-suite"
+    description = "Google Cloud Storage Bucket to create, o valor informado será usado como pré-fixo para o seguinte padrão {bucket_name}-raft-suite"
 }
 
 variable "dataset_id" {

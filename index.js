@@ -18,20 +18,21 @@ exports.penguinDatalayerCollect = async (req, res) => {
     res.sendStatus(204);
   } else {
     penguinConfig = await loadPenguinConfig();
+    deparaSchema = penguinConfig.DEPARA_SCHEMA;
     let query = req.query;
     debugging = query.debugging; //Se true habilita o log do json de validação 
+    delete query.debugging;
 
+    // Verificação se o identificado de schema foi passado por parâmetro
     if (!query[penguinConfig.PARAM_QUERY_STRING_SCHEMA]) {
       return;
     }
-    
-    deparaSchema = penguinConfig.DEPARA_SCHEMA;
     
     //Pega a lista de schemas do dataLayer para validação 
     //com base schema informado na requisição, caso contrário usa o default
     let listaSchema = deparaSchema[query[penguinConfig.PARAM_QUERY_STRING_SCHEMA]];
     let jsonSchemas = await downloadSchemas(listaSchema || deparaSchema.global);
-    trace(jsonSchemas);
+    trace('SCHEMAS', jsonSchemas);
 
     let result = [];
     jsonSchemas.forEach(schema => {
@@ -41,7 +42,7 @@ exports.penguinDatalayerCollect = async (req, res) => {
       })
     });
 
-    trace(result);
+    trace('RESULT VALID', result);
     insertRowsAsStream(result);
     res.status(200).send(debugging ? result : 'sucesso!');
   }
@@ -89,21 +90,20 @@ function transformarQueryStringInObject(data) {
  */
 async function insertRowsAsStream(data) {
   const bigquery = new BigQuery();
-  const datasetId = penguinConfig.BQ_DATASET_ID;
-  const tableId = penguinConfig.BQ_TABLE_ID_RAWDATA;
-  const rows = data;
-
   const options = {
-    schema: penguinConfig.BQ_SCHEMA_RAWDATA
+    schema: penguinConfig.BQ_SCHEMA_RAWDATA,
+    skipInvalidRows: true,
+    ignoreUnknownValues: true
   };
 
+  trace(data);
   // Insert data into a table
   await bigquery
-    .dataset(datasetId)
-    .table(tableId)
-    .insert(rows, options, insertHandler);
+    .dataset(penguinConfig.BQ_DATASET_ID)
+    .table(penguinConfig.BQ_TABLE_ID_RAWDATA)
+    .insert(data, options, insertHandler);
 
-  console.log(`Inserted ${rows.length} rows`);
+  console.log(`Inserted ${data.length} rows`);
 }
 
 /**
@@ -142,7 +142,7 @@ async function loadPenguinConfig() {
 
 function insertHandler(err, apiResponse) {
   if (err) {
-    console.log(err.name, err);
+    console.error(err.name, JSON.stringify(err));
   }
 }
 

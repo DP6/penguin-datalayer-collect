@@ -22,10 +22,10 @@ const penguinDatalayerCollect = async (req, res) => {
     let query = req.query;
     debugging = query.debugging; //Se true habilita o log do json de validação 
     delete query.debugging;
-
+    
     // Verificação se o identificado de schema foi passado por parâmetro
     if (!query[penguinConfig.PARAM_QUERY_STRING_SCHEMA]) {
-      res.status(400).send(`${penguinConfig.PARAM_QUERY_STRING_SCHEMA} não informado como parâmetro queryString`)
+      res.status(400).send(`${debugging ? "debugging " : ""}${penguinConfig.PARAM_QUERY_STRING_SCHEMA} não informado como parâmetro queryString`)
       return;
     }
     
@@ -45,7 +45,7 @@ const penguinDatalayerCollect = async (req, res) => {
 
     trace('RESULT VALID', result);
     insertRowsAsStream(result);
-    res.status(200).send(debugging ? result : 'sucesso!');
+    res.status(200).send(debugging ? {debugging: debugging, result: result} : 'sucesso!');
   }
 };
 

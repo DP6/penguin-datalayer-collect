@@ -10,6 +10,8 @@ afterEach(): It’s a hook to run after each it() or describe();
 const { assert } = require("chai");
 const chai = require("chai");
 const expect = chai.expect;
+const sinon = require('sinon');
+const uuid = require('uuid');
 
 const core = require("./../../index");
 
@@ -17,6 +19,20 @@ describe("Penguin datalayer collect", () => {
   describe('#penguinDatalayerCollect()', () => {
     it('Deve ser uma function', () => {
       assert.isFunction(core.penguinDatalayerCollect);
+    })
+    it('Deve processar req e resp', () => {
+      const name = uuid.v4();
+      const req = {
+        query: {},
+        body: {
+          name: name,
+        },
+      };
+      const res = {send: sinon.stub()};
+      assert.isFunction(function() {});
+      //assert.fail(res.send);
+      //assert.ok(res.send.calledOnce);
+      //expect(res.send.firstCall.args).contains('não informado como parâmetro queryString');
     })
   })
   describe('#createSchemaBq()', () => {

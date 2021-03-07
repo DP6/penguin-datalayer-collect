@@ -15,6 +15,7 @@
     "integration-test": "mocha ./test/integration --timeout=600000 --exit",
     "all-test": "npm run unit-test && npm run integration-test",
     "test": "npm -- run all-test",
+    "coverage": "nyc npm run test",
     "docs": "jsdoc2md index.js > docs/index.md"
   },
   "author": "DP6",

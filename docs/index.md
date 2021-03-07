@@ -24,66 +24,71 @@
 <a name="createSchemaBq"></a>
 
 ## createSchemaBq(result, queryString, schemaName) ⇒ <code>Array</code>
+
 Monta as linhas para serem inseridas no BQ
 
 **Kind**: global function  
-**Returns**: <code>Array</code> - Dados estruturados para o BQ  
+**Returns**: <code>Array</code> - Dados estruturados para o BQ
 
-| Param | Type | Description |
-| --- | --- | --- |
-| result | <code>Array</code> | Status das chaves validadas |
-| queryString | <code>Object</code> |  |
-| schemaName | <code>String</code> | Identificação do schema usado para validação |
+| Param       | Type                | Description                                  |
+| ----------- | ------------------- | -------------------------------------------- |
+| result      | <code>Array</code>  | Status das chaves validadas                  |
+| queryString | <code>Object</code> |                                              |
+| schemaName  | <code>String</code> | Identificação do schema usado para validação |
 
 <a name="transformarQueryStringInObject"></a>
 
 ## transformarQueryStringInObject(data) ⇒ <code>Object</code>
+
 Unifica todos os atributos de todos os objetos do array em um único objeto
 
 **Kind**: global function  
-**Returns**: <code>Object</code> - Objeto com todos as atributos unificados  
+**Returns**: <code>Object</code> - Objeto com todos as atributos unificados
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Array</code> | Array de objetos |
+| Param | Type               | Description      |
+| ----- | ------------------ | ---------------- |
+| data  | <code>Array</code> | Array de objetos |
 
 <a name="insertRowsAsStream"></a>
 
 ## insertRowsAsStream(data)
+
 Realiza a persistências dos dados por Stream no BigQuery
 
-**Kind**: global function  
+**Kind**: global function
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Array</code> | Dados estruturados no padrão de persistência do BQ |
+| Param | Type               | Description                                        |
+| ----- | ------------------ | -------------------------------------------------- |
+| data  | <code>Array</code> | Dados estruturados no padrão de persistência do BQ |
 
 <a name="downloadSchemas"></a>
 
 ## downloadSchemas(listSchemaNames) ⇒ <code>Array</code>
+
 Baixa os arquivos .json do GSC para serem usados na validação dataLayer
 
 **Kind**: global function  
-**Returns**: <code>Array</code> - De Schemas de validação  
+**Returns**: <code>Array</code> - De Schemas de validação
 
-| Param | Type | Description |
-| --- | --- | --- |
+| Param           | Type               | Description                  |
+| --------------- | ------------------ | ---------------------------- |
 | listSchemaNames | <code>Array</code> | Contendo o nome dos arquivos |
 
 <a name="loadPenguinConfig"></a>
 
 ## loadPenguinConfig()
+
 Carrega o arquivo de configuração armazenado no GCS
 
 **Kind**: global function  
 <a name="trace"></a>
 
 ## trace(log)
+
 Enviado o log para o stdout, se somente se, a variável debugging = true
 
-**Kind**: global function  
+**Kind**: global function
 
-| Param | Type | Description |
-| --- | --- | --- |
-| log | <code>Object</code> | Que será apresentado no stdout |
-
+| Param | Type                | Description                    |
+| ----- | ------------------- | ------------------------------ |
+| log   | <code>Object</code> | Que será apresentado no stdout |

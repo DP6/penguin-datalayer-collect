@@ -1,4 +1,4 @@
-const chai = require("chai");
+const chai = require('chai');
 const expect = chai.expect;
 const assert = chai.assert;
 const execPromise = require('child-process-promise').exec;
@@ -18,37 +18,36 @@ describe('Execução cloud function penguinDataleyerCollect', async () => {
     // Workaround: include "& sleep <TIMEOUT>; kill $!" in executed command
     ffProc = execPromise(
       `functions-framework --target=penguinDatalayerCollect --signature-type=http --port ${PORT} & sleep 2; kill $!`,
-      {shell: true, cwd}
-      );
-    });
-    
-    after(async () => {
-      // Wait for the functions framework to stop
-      await ffProc;
-    });
-    
-    it('Deve retornar http status code 400, quando o parâmentro de depara não é informado', async () => {
-      const response = await requestEndpoint();
+      { shell: true, cwd }
+    );
+  });
 
-      assert.strictEqual(response.statusCode, 400);
-      expect(response.body).that.contains('não informado como parâmetro queryString');
-    });
+  after(async () => {
+    // Wait for the functions framework to stop
+    await ffProc;
+  });
 
-    it('Deve retornar a identificação que o modo debugging está ativado', async () => {
-      const response = await requestEndpoint();
+  it('Deve retornar http status code 400, quando o parâmentro de depara não é informado', async () => {
+    const response = await requestEndpoint();
 
+    assert.strictEqual(response.statusCode, 400);
+    expect(response.body).that.contains('não informado como parâmetro queryString');
+  });
 
-      assert.strictEqual(response.statusCode, 400);
-      expect(response.body).that.contains('debugging');
-    });
+  it('Deve retornar a identificação que o modo debugging está ativado', async () => {
+    const response = await requestEndpoint();
+
+    assert.strictEqual(response.statusCode, 400);
+    expect(response.body).that.contains('debugging');
+  });
 });
 
 async function requestEndpoint() {
   return requestRetry({
     url: `${BASE_URL}/penguinDatalayerCollect?debugging=true`,
     method: 'POST',
-    body: {attr: 'sss'},
+    body: { attr: 'sss' },
     retryDelay: 200,
     json: true,
-  }); 
+  });
 }

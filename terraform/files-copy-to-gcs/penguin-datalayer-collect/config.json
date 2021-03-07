@@ -1,7 +1,11 @@
 {
-    "DEPARA_SCHEMA": {"produto":["exemplo_schema.json","detalhamento_produto.json"],"comprafinalizada":["exemplo_schema.json","compra_efetuada.json"],"global":["exemplo_schema.json"]},
-    "PARAM_QUERY_STRING_SCHEMA": "schema",
-    "BQ_DATASET_ID": "raft_suite",
-    "BQ_TABLE_ID_RAWDATA": "penguin_datalayer_raw",
-    "BQ_SCHEMA_RAWDATA": "data: DATETIME, schema: STRING, status: STRING, message: STRING, schema: STRING, objectName: STRING, keyName: STRING"
+  "DEPARA_SCHEMA": {
+    "produto": ["exemplo_schema.json", "detalhamento_produto.json"],
+    "comprafinalizada": ["exemplo_schema.json", "compra_efetuada.json"],
+    "global": ["exemplo_schema.json"]
+  },
+  "PARAM_QUERY_STRING_SCHEMA": "schema",
+  "BQ_DATASET_ID": "raft_suite",
+  "BQ_TABLE_ID_RAWDATA": "penguin_datalayer_raw",
+  "BQ_SCHEMA_RAWDATA": "data: DATETIME, schema: STRING, status: STRING, message: STRING, schema: STRING, objectName: STRING, keyName: STRING"
 }

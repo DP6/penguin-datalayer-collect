@@ -1,38 +1,38 @@
 [
-    {
-        "name": "data",
-        "type": "DATETIME",
-        "mode": "REQUIRED",
-        "description": "Datatime com timezone America/Sao_Paulo"
-    },
-    {
-        "name": "status",
-        "type": "STRING",
-        "mode": "NULLABLE",
-        "description": "Status da validação"
-    },
-    {
-        "name": "message",
-        "type": "STRING",
-        "mode": "NULLABLE",
-        "description": "Detalhamento da validação"
-    },
-    {
-        "name": "schema",
-        "type": "STRING",
-        "mode": "NULLABLE",
-        "description": "Nome do schema utilizado para validação da chave"
-    },
-    {
-        "name": "objectName",
-        "type": "STRING",
-        "mode": "NULLABLE",
-        "description": "Nome do objeto da camada de dados validado se houver"
-    },
-    {
-        "name": "keyName",
-        "type": "STRING",
-        "mode": "NULLABLE",
-        "description": "Chave da camada de dados validada se houver"
-    }
+  {
+    "name": "data",
+    "type": "DATETIME",
+    "mode": "REQUIRED",
+    "description": "Datatime com timezone America/Sao_Paulo"
+  },
+  {
+    "name": "status",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Status da validação"
+  },
+  {
+    "name": "message",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Detalhamento da validação"
+  },
+  {
+    "name": "schema",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Nome do schema utilizado para validação da chave"
+  },
+  {
+    "name": "objectName",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Nome do objeto da camada de dados validado se houver"
+  },
+  {
+    "name": "keyName",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Chave da camada de dados validada se houver"
+  }
 ]

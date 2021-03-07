@@ -2,14 +2,14 @@ const datalayerCore = require('@dp6/penguin-datalayer-core');
 const { BigQuery } = require('@google-cloud/bigquery');
 const { Storage } = require('@google-cloud/storage');
 const BUCKET_GCS = process.env.PENGUIN_DATALAYER_BUCKET_GCS;
-const FOLDER_PENGUIN = 'penguin-datalayer-collect'
+const FOLDER_PENGUIN = 'penguin-datalayer-collect';
 let penguinConfig = {};
 let debugging = false;
 
 const penguinDatalayerCollect = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Credentials', 'true');
-  
+
   // Liberação de CROS
   if (req.method === 'OPTIONS') {
     res.set('Access-Control-Allow-Methods', 'GET, POST');
@@ -18,50 +18,58 @@ const penguinDatalayerCollect = async (req, res) => {
     res.sendStatus(204);
   } else {
     penguinConfig = await loadPenguinConfig();
-    deparaSchema = penguinConfig.DEPARA_SCHEMA;
-    let query = req.query;
-    debugging = query.debugging; //Se true habilita o log do json de validação 
+    const deparaSchema = penguinConfig.DEPARA_SCHEMA;
+    const query = req.query;
+    debugging = query.debugging; //Se true habilita o log do json de validação
     delete query.debugging;
-    
+
     // Verificação se o identificado de schema foi passado por parâmetro
     if (!query[penguinConfig.PARAM_QUERY_STRING_SCHEMA]) {
-      res.status(400).send(`${debugging ? "debugging " : ""}${penguinConfig.PARAM_QUERY_STRING_SCHEMA} não informado como parâmetro queryString`)
+      res
+        .status(400)
+        .send(
+          `${debugging ? 'debugging' : ''}${
+            penguinConfig.PARAM_QUERY_STRING_SCHEMA
+          } não informado como parâmetro queryString`
+        );
       return;
     }
-    
-    //Pega a lista de schemas do dataLayer para validação 
+
+    //Pega a lista de schemas do dataLayer para validação
     //com base schema informado na requisição, caso contrário usa o default
     let listaSchema = deparaSchema[query[penguinConfig.PARAM_QUERY_STRING_SCHEMA]];
     let jsonSchemas = await downloadSchemas(listaSchema || deparaSchema.global);
     trace('SCHEMAS', jsonSchemas);
 
     let result = [];
-    jsonSchemas.forEach(schema => {
-      req.body.forEach(eventoDataLayer => {
-        let eventsValid = datalayerCore.validate(JSON.parse(schema.json), eventoDataLayer, function() {});
-         result = result.concat(createSchemaBq(eventsValid, query, `${query[penguinConfig.PARAM_QUERY_STRING_SCHEMA]}:${schema.name}`));
-      })
+    jsonSchemas.forEach((schema) => {
+      req.body.forEach((eventoDataLayer) => {
+        let eventsValid = datalayerCore.validate(JSON.parse(schema.json), eventoDataLayer, function () {});
+        result = result.concat(
+          createSchemaBq(eventsValid, query, `${query[penguinConfig.PARAM_QUERY_STRING_SCHEMA]}:${schema.name}`)
+        );
+      });
     });
 
     trace('RESULT VALID', result);
     insertRowsAsStream(result);
-    res.status(200).send(debugging ? {debugging: debugging, result: result} : 'sucesso!');
+    res.status(200).send(debugging ? { debugging: debugging, result: result } : 'sucesso!');
   }
 };
 
 /**
  * Monta as linhas para serem inseridas no BQ
  * @param {Array} result Status das chaves validadas
- * @param {Object} queryString 
+ * @param {Object} queryString
  * @param {String} schemaName Identificação do schema usado para validação
  * @returns {Array} Dados estruturados para o BQ
  */
 function createSchemaBq(result, queryString, schemaName) {
   const schemaBQ = [];
-  const schema = {schema: schemaName}
+  const schema = { schema: schemaName };
   const objectQuery = addTimestamp(queryString);
-  result.forEach(item => {
-    schemaBQ.push({...objectQuery, ...schema,...item});
+  result.forEach((item) => {
+    schemaBQ.push({ ...objectQuery, ...schema, ...item });
   });
 
   return schemaBQ;
@@ -89,7 +97,7 @@ async function insertRowsAsStream(data) {
   const options = {
     schema: penguinConfig.BQ_SCHEMA_RAWDATA,
     skipInvalidRows: true,
-    ignoreUnknownValues: true
+    ignoreUnknownValues: true,
   };
 
   trace(data);
@@ -112,12 +120,12 @@ async function downloadSchemas(listSchemaNames) {
   const bucket = storage.bucket(BUCKET_GCS);
   const jsonSchemas = [];
 
-  const promisse =  listSchemaNames.map(async nameSchema => {
+  const promisse = listSchemaNames.map(async (nameSchema) => {
     let file = bucket.file(`${FOLDER_PENGUIN}/schemas/${nameSchema}`);
     let json = (await file.download())[0].toString();
-    jsonSchemas.push({name: nameSchema, json: json});
+    jsonSchemas.push({ name: nameSchema, json: json });
   });
-  
+
   await Promise.all(promisse);
 
   return jsonSchemas;
@@ -132,7 +140,7 @@ async function loadPenguinConfig() {
 
   let file = bucket.file(`${FOLDER_PENGUIN}/config.json`);
   let penguinConfig = (await file.download())[0].toString();
- 
+
   return JSON.parse(penguinConfig);
 }
 
@@ -143,8 +151,8 @@ function insertHandler(err, apiResponse) {
 }
 
 /**
- * Enviado o log para o stdout, se somente se, a variável debugging = true 
- * @param {Object} log Que será apresentado no stdout 
+ * Enviado o log para o stdout, se somente se, a variável debugging = true
+ * @param {Object} log Que será apresentado no stdout
  */
 function trace(log) {
   if (debugging) {
@@ -154,9 +162,9 @@ function trace(log) {
 
 module.exports = {
   createSchemaBq,
-  addTimestamp, 
+  addTimestamp,
   downloadSchemas,
   loadPenguinConfig,
   insertRowsAsStream,
-  penguinDatalayerCollect
-}
+  penguinDatalayerCollect,
+};

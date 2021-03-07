@@ -41,7 +41,8 @@ typings/
 tmp/
 
 # Vscode config
-.vscode
+.vscode/
+!.vscode/settings.json
 
 #terraform
 .terraform/

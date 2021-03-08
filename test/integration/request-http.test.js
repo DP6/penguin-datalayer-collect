@@ -7,6 +7,7 @@ const requestRetry = require('requestretry');
 const uuid = require('uuid');
 
 const PORT = process.env.PORT || 8080;
+process.env.PENGUIN_DATALAYER_BUCKET_GCS = 'teste-raft-suite'; //bucket com arquivo de configuração publico
 const BASE_URL = `http://localhost:${PORT}`;
 const cwd = path.join(__dirname, './../../');
 let ffProc;

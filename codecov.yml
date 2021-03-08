@@ -1,0 +1,8 @@
+codecov:
+  bot: dp6-koopas
+  require_ci_to_pass: yes
+  
+coverage:
+  precision: 2
+  round: down
+  range: "50...100"

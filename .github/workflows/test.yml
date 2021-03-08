@@ -10,8 +10,8 @@ jobs:
           fetch-depth: 2
       - name: Install dependencies
         run: npm install
-      - name: Run unit test
-        run: npm run unit-test
+      - name: Run tests
+        run: npm run test
       - name: Run coverage
         run: npm run coverage
       - name: Upload coverage to Codecov

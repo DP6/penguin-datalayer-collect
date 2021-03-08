@@ -13,9 +13,9 @@
     "test-lint": "eslint . && prettier --check .",
     "unit-test": "mocha ./test/unit",
     "integration-test": "mocha ./test/integration --timeout=600000 --exit",
-    "all-test": "npm run unit-test && npm run integration-test",
+    "all-test": "npm run integration-test && npm run unit-test",
     "test": "npm -- run all-test",
-    "coverage": "nyc npm run test",
+    "coverage": "nyc --reporter=lcov npm run unit-test",
     "docs": "jsdoc2md index.js > docs/index.md"
   },
   "author": "DP6",

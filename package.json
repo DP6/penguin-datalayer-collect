@@ -44,7 +44,7 @@
   "dependencies": {
     "@dp6/penguin-datalayer-core": "0.0.1",
     "@google-cloud/bigquery": "^5.5.0",
-    "@google-cloud/storage": "^5.7.4"
+    "@google-cloud/storage": "^5.8.1"
   },
   "devDependencies": {
     "@google-cloud/functions-framework": "^1.7.1",

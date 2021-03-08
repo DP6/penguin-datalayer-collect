@@ -11,11 +11,11 @@
   "scripts": {
     "prettier-format": "prettier --write .",
     "test-lint": "eslint . && prettier --check .",
-    "unit-test": "mocha ./test/unit",
-    "integration-test": "mocha ./test/integration --timeout=600000 --exit",
+    "unit-test": "mocha ./test/unit  -timeout 8000",
+    "integration-test": "mocha ./test/integration --timeout=16000 --exit",
     "all-test": "npm run integration-test && npm run unit-test",
     "test": "npm -- run all-test",
-    "coverage": "nyc --reporter=lcov npm run unit-test",
+    "coverage": "nyc --reporter=lcov npm run test",
     "docs": "jsdoc2md index.js > docs/index.md"
   },
   "author": "DP6",

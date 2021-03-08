@@ -18,7 +18,7 @@ describe('Execução cloud function penguinDataleyerCollect', async () => {
     // exec's 'timeout' param won't kill children of "shim" /bin/sh process
     // Workaround: include "& sleep <TIMEOUT>; kill $!" in executed command
     ffProc = execPromise(
-      `functions-framework --target=penguinDatalayerCollect --signature-type=http --port ${PORT} & sleep 2; kill $!`,
+      `functions-framework --target=penguinDatalayerCollect --signature-type=http --port ${PORT} & sleep 8; kill $!`,
       { shell: true, cwd }
     );
   });

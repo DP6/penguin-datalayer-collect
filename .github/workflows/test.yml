@@ -10,13 +10,13 @@ jobs:
           fetch-depth: 2
       - name: Install dependencies
         run: npm install
-      - name: Run all tests
+      - name: Run tests
         run: npm run test
-      - name: Run coverage upload coverage
-        run: npm run coverage && codecov
+      - name: Run coverage
+        run: npm run coverage
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: .nyc_output
           flags: unittests,integrationtest
           name: codecov-nyc

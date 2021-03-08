@@ -12,6 +12,7 @@ const chai = require('chai');
 const expect = chai.expect;
 const sinon = require('sinon');
 const uuid = require('uuid');
+process.env.PENGUIN_DATALAYER_BUCKET_GCS = 'teste-raft-suite';
 
 const core = require('./../../index');
 
@@ -20,21 +21,55 @@ describe('Penguin datalayer collect', () => {
     it('Deve ser uma function', () => {
       assert.isFunction(core.penguinDatalayerCollect);
     });
-    it('Deve processar req e resp', () => {
-      const name = uuid.v4();
+    it('Deve processar req e resp retornando http status code 400', async () => {
       const req = {
         query: {},
         body: {
-          name: name,
+          id: uuid.v4(),
         },
       };
-      const res = { send: sinon.stub() };
-      assert.isFunction(function () {});
-      //assert.fail(res.send);
-      //assert.ok(res.send.calledOnce);
-      //expect(res.send.firstCall.args).contains('não informado como parâmetro queryString');
+
+      let tmpResponse = { status: '' };
+      let tmpFunctionStatus = (s) => {
+        tmpResponse.status = s;
+      };
+      const res = {
+        set: () => {},
+        sendStatus: tmpFunctionStatus,
+        send: tmpFunctionStatus,
+        status: (s) => {
+          tmpFunctionStatus(s);
+          return { send: () => {} };
+        },
+      };
+
+      await core.penguinDatalayerCollect(req, res);
+      assert.strictEqual(tmpResponse.status, 400);
+    });
+    it('Deve processar req e resp retornando http status code 204', async () => {
+      const req = {
+        query: {},
+        method: 'OPTIONS',
+        body: {
+          id: uuid.v4(),
+        },
+      };
+
+      let tmpResponse = { status: '' };
+      let tmpFunctionStatus = (s) => {
+        tmpResponse.status = s;
+      };
+      const res = {
+        set: () => {},
+        sendStatus: tmpFunctionStatus,
+        send: tmpFunctionStatus,
+      };
+
+      await core.penguinDatalayerCollect(req, res);
+      assert.strictEqual(tmpResponse.status, 204);
     });
   });
+
   describe('#createSchemaBq()', () => {
     let array = [{ att: 'a' }, { att: 'b' }];
     let obj = { c: 'c' };
@@ -53,6 +88,7 @@ describe('Penguin datalayer collect', () => {
       expect(core.createSchemaBq(array, obj, string)[1]).to.have.own.property('schema');
     });
   });
+
   describe('#addTimestamp()', () => {
     let patternTimestamp = /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})$/;
     let obj = { attr: 'attr' };
@@ -65,6 +101,18 @@ describe('Penguin datalayer collect', () => {
     });
     it('Data deve estar no padrão yyyy-mm-ddThh:mm:ss', () => {
       expect(patternTimestamp.test(core.addTimestamp(obj).data)).to.be.true;
+    });
+  });
+
+  describe('#downloadSchemas()', () => {
+    it('Deve retornar um array com schema', async () => {
+      expect(await core.downloadSchemas(['camada_global.json'])).to.be.an('array').that.not.empty;
+    });
+  });
+
+  describe('#loadPenguinConfig()', () => {
+    it('Deve retornar o objeto de configuração', async () => {
+      expect(await core.loadPenguinConfig()).to.have.own.property('DEPARA_SCHEMA');
     });
   });
 });

@@ -68,6 +68,35 @@ describe('Penguin datalayer collect', () => {
       await core.penguinDatalayerCollect(req, res);
       assert.strictEqual(tmpResponse.status, 204);
     });
+    it('Deve processar req e resp retornando http status code 200', async () => {
+      const req = {
+        query: { schema: 'global' },
+        body: [
+          {
+            event: 'update',
+            usuario: { idUsuario: '24413751', statusLogin: 'logado' },
+            'gtm.uniqueEventId': 3,
+          },
+        ],
+      };
+
+      let tmpResponse = { status: '' };
+      let tmpFunctionStatus = (s) => {
+        tmpResponse.status = s;
+      };
+      const res = {
+        set: () => {},
+        sendStatus: tmpFunctionStatus,
+        send: tmpFunctionStatus,
+        status: (s) => {
+          tmpFunctionStatus(s);
+          return { send: () => {} };
+        },
+      };
+
+      await core.penguinDatalayerCollect(req, res);
+      assert.strictEqual(tmpResponse.status, 200);
+    });
   });
 
   describe('#createSchemaBq()', () => {

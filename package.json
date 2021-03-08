@@ -42,7 +42,7 @@
     "branch": "master"
   },
   "dependencies": {
-    "@dp6/penguin-datalayer-core": "0.0.1",
+    "@dp6/penguin-datalayer-core": "1.0.0",
     "@google-cloud/bigquery": "^5.5.0",
     "@google-cloud/storage": "^5.8.1"
   },

@@ -8,6 +8,12 @@
   <a href="#badge">
     <img alt="semantic-release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
   </a>
+  <a href="https://codecov.io/gh/dp6/penguin-datalayer-collect">
+    <img src="https://codecov.io/gh/dp6/penguin-datalayer-collect/branch/master/graph/badge.svg?token=AL6REB2792"/>
+  </a>
+  <a href="#badge">
+    <img alt="Test" src="https://github.com/dp6/penguin-datalayer-collect/actions/workflows/test.yml/badge.svg">
+  </a>
 </p>
 
 O penguin-datalayer-collect é um modulo do ecossitema raf-suite criado pela DP6 para garantir a qualidade dos dados ([Data Quality](https://en.wikipedia.org/wiki/Data_quality)) nos projetos de engenharia de dados implementados nos clientes da DP6, através de monitoramento e pipelines automatizadas de dados.

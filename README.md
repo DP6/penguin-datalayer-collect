@@ -20,7 +20,7 @@ O penguin-datalayer-collect é um modulo do ecossitema raf-suite criado pela DP6
 
 ## Ecossistema raft-suite
 
-![DP6](https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/abrangencia-ecossistema-raft-suite.jpg)
+![DP6](https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/datalayer-collect-abrangencia-ecossistema-raft-suite.jpg)
 
 # Setup penguin-datalayer-collect
 
@@ -45,17 +45,17 @@ _Observação:_ Utilizando o ambiente no [Google Cloud Shell](https://cloud.goog
 
 ### 1.3 Ludwig gerador de Schemas
 
-TODO
+Para gerar o schema de validação da camada de dados acesse a documentação disponível em [penguin-datalayer-core](https://github.com/DP6/penguin-datalayer-core#11-json-schema)
 
 ## 2. Instalando o penguin-datalayer-core
 
-Clonando o projeto git
+Clone o projeto do github para sua máquina local ou Cloud Shell
 
 ```console
 git clone https://github.com/DP6/penguin-datalayer-collect.git
 ```
 
-Fazer deploy no GCP usando o Terraform
+Para fazer deploy no GCP usando o Terraform, o utilize o shell script terraform_deploy
 
 ```console
 sh terraform_deploy.sh
@@ -129,9 +129,11 @@ O penguin-datalayer-collect também pode ser utilizado para validar a coleta ser
 
 TODO
 
-## 5. Criando o dashboard de acompanhamento
+## 5. Dashboard de acompanhamento
+A base de dados criada pelo penguin-datalayer-collect, pode ser utilizada para diversas análises fazendo o cruzamento com os dados de domínio do negócio, porém a DP6 desenvolveu um dashboard base para monitoramento das métricas de erros disponibilizada pelo módulo.
 
-TODO
+![DP6](https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/dashboard_penguin_datalayer_collect.png)
+
 
 ## 6. Como contribuir
 

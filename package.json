@@ -16,7 +16,8 @@
     "all-test": "npm run integration-test && npm run unit-test",
     "test": "npm -- run all-test",
     "coverage": "nyc --reporter=lcov npm run unit-test",
-    "docs": "jsdoc2md index.js > docs/index.md"
+    "docs": "jsdoc2md index.js > docs/index.md",
+    "local": "functions-framework --target=penguinDatalayerCollect --signature-type=http --port 8080"
   },
   "author": "DP6",
   "contributors": [
@@ -42,17 +43,13 @@
     "branch": "master"
   },
   "dependencies": {
-    "@dp6/penguin-datalayer-core": "1.0.0",
+    "@dp6/penguin-datalayer-core": "^1.1.2",
     "@google-cloud/bigquery": "^5.5.0",
     "@google-cloud/storage": "^5.8.1"
   },
   "devDependencies": {
     "@google-cloud/functions-framework": "^1.7.1",
-    "axios": "^0.21.1",
-    "axios-retry": "^3.1.9",
-    "bent": "^7.3.12",
     "chai": "^4.3.3",
-    "chai-http": "^4.3.0",
     "child-process-promise": "^2.2.1",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
@@ -61,12 +58,10 @@
     "mocha": "^8.3.1",
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
-    "promise-retry": "^2.0.1",
     "proxyquire": "^2.1.3",
     "request": "^2.88.2",
     "requestretry": "^5.0.0",
     "sinon": "^9.2.4",
-    "supertest": "^6.1.3",
     "uuid": "^8.3.2"
   }
 }

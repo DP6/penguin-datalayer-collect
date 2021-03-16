@@ -54,6 +54,7 @@ O ecossistema raft-suite é uma solução da DP6 que visa suprir as necessidades
 3. [Criar service Account](https://cloud.google.com/iam/docs/creating-managing-service-accounts) com as permissões (Storage Object Admin, Cloud Functions Admin, BigQuery Admin e Service Account User)
 4. Variável [GOOGLE_APPLICATION_CREDENTIALS](https://cloud.google.com/docs/authentication/getting-started#setting_the_environment_variable)
 5. Instalar o [Terraform](https://www.terraform.io/downloads.html)
+6. Habilitar os produtos no GCP Cloud Function, BigQuery, Cloud Build API e Cloud Storage, para uso do BigQuery é necessário ter um billing ativo
 
 _Observação:_ Utilizando o ambiente no [Google Cloud Shell](https://cloud.google.com/shell/docs) não é necessário fazer os **1**, **2**, **4** e **5**
 

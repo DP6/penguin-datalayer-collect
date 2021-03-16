@@ -8,7 +8,7 @@ data "google_client_openid_userinfo" "me" {
 #Configurações Cloud Storage
 ######################################################
 resource "google_storage_bucket" "my_storage" {
-  name          = var.bucket_name
+  name          = local.final_bucket_name
   location      = var.location
   force_destroy = true
  
@@ -23,7 +23,7 @@ resource "null_resource" "cf_code_zip" {
   }
 
   provisioner "local-exec" {
-    command = "sh scripts/${var.version-penguin-datalayer-collect != "local" ? "download-penguin-datalayer-collect.sh" : "using-local-penguin-datalayer-collect.sh"} ${var.version-penguin-datalayer-collect} ${var.bucket_name}"
+    command = "sh scripts/${var.version-penguin-datalayer-collect != "local" ? "download-penguin-datalayer-collect.sh" : "using-local-penguin-datalayer-collect.sh"} ${var.version-penguin-datalayer-collect} ${local.final_bucket_name}"
   }
 
   depends_on = [google_storage_bucket.my_storage]
@@ -35,7 +35,7 @@ resource "null_resource" "cf_code_zip" {
 #dataset
 resource "google_bigquery_dataset" "dataset" {
   location          = var.location
-  dataset_id        = var.dataset_id
+  dataset_id        = local.final_dataset_id
   description       = "Raft Suite é solução de data quality da DP6, esse dataset contém as tabelas com os dados de monitoramento da ferramenta"
   delete_contents_on_destroy      = true
   
@@ -45,7 +45,7 @@ resource "google_bigquery_dataset" "dataset" {
 }
 
 resource "google_bigquery_table" "penguin-datalayer-raw" {
-  dataset_id        = var.dataset_id
+  dataset_id        = local.final_dataset_id
   table_id          = local.bq_table_id
   description       = "Tabela com o status da validação das chaves da camada de dados"
   schema            = file("bigquery/schema_penguin_datalayer_raw.json")
@@ -67,19 +67,19 @@ resource "google_bigquery_table" "penguin-datalayer-raw" {
 data "template_file" "view_aggregation" {
   template = file("bigquery/query_view_chaves_agregadas.sql")
   vars = {
-   table_name = "${var.project_id}.${var.dataset_id}.${local.bq_table_id}"
+   table_name = "${var.project_id}.${local.final_dataset_id}.${local.bq_table_id}"
   }
 }
 
 data "template_file" "view_diagnostic" {
   template = file("bigquery/query_view_diagnostico.sql")
   vars = {
-   table_name = "${var.project_id}.${var.dataset_id}.${local.bq_table_id}"
+   table_name = "${var.project_id}.${local.final_dataset_id}.${local.bq_table_id}"
   }
 }
 
 resource "google_bigquery_table" "view_aggregation" {
-    dataset_id          = var.dataset_id
+    dataset_id          = local.final_dataset_id
     table_id            = local.bq_view_aggregation
     description         = "View com os dados agregados da tabela ${local.bq_table_id}"
     deletion_protection = false
@@ -94,7 +94,7 @@ resource "google_bigquery_table" "view_aggregation" {
 }
 
 resource "google_bigquery_table" "view_diagnostic" {
-    dataset_id          = var.dataset_id
+    dataset_id          = local.final_dataset_id
     table_id            = local.bq_view_diagnostic
     description         = "View com os dados agregados do resultado geral dos erros ${local.bq_table_id}"
     deletion_protection = false
@@ -125,7 +125,7 @@ resource "google_cloudfunctions_function" "function" {
   trigger_http          = true
   entry_point           = local.cf_entry_point
    environment_variables = {
-    PENGUIN_DATALAYER_BUCKET_GCS = var.bucket_name
+    PENGUIN_DATALAYER_BUCKET_GCS = local.final_bucket_name
   }
   depends_on = [null_resource.cf_code_zip]
 }

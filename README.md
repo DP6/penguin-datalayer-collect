@@ -20,7 +20,21 @@ O penguin-datalayer-collect é um modulo do ecossitema raf-suite criado pela DP6
 
 ## Ecossistema raft-suite
 
+O penguin-datalayer-collect consegue auxiliar as áreas de digital analytics das empresas nos seguintes pilares da qualidade de dados:
+ 
+* Disponibilidade
+* Completude
+* Validade
+* Consistência
+* Acurácia
+* Uniformidade
+ 
+Essa abrangência pode ser observada com mais detalhes na imagem abaixo que representa o ciclo de vida do dado, e em quais momentos a solução pode ser aplicada.
+
+
 ![DP6](https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/datalayer-collect-abrangencia-ecossistema-raft-suite.jpg)
+
+O ecossistema raft-suite é uma solução da DP6 que visa suprir as necessidades de monitoria do ciclo de vida dos dados para antecipar possíveis inconsistências.
 
 # Setup penguin-datalayer-collect
 

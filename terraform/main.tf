@@ -46,9 +46,49 @@ resource "google_bigquery_dataset" "dataset" {
 
 resource "google_bigquery_table" "penguin-datalayer-raw" {
   dataset_id        = local.final_dataset_id
-  table_id          = local.bq_table_id
+  table_id          = local.bq_table_id_raw
   description       = "Tabela com o status da validação das chaves da camada de dados"
   schema            = file("bigquery/schema_penguin_datalayer_raw.json")
+  clustering        =  ["data"]
+  expiration_time    = null
+  deletion_protection = false
+  time_partitioning  {
+    type                     = "DAY"
+    field                    = "data"
+    require_partition_filter = false
+    expiration_ms            = null
+  }
+  labels = {
+    produto = local.raft_suite_module
+  }
+  depends_on = [google_bigquery_dataset.dataset]
+}
+
+resource "google_bigquery_table" "penguin-datalayer-aggregation" {
+  dataset_id        = local.final_dataset_id
+  table_id          = local.bq_table_id_aggregation
+  description       = "Tabela com os dados consolidados diariamente das validações por chaves para utilização em visualizações"
+  schema            = file("bigquery/schema_penguin_datalayer_aggregation.json")
+  clustering        =  ["data"]
+  expiration_time    = null
+  deletion_protection = false
+  time_partitioning  {
+    type                     = "DAY"
+    field                    = "data"
+    require_partition_filter = false
+    expiration_ms            = null
+  }
+  labels = {
+    produto = local.raft_suite_module
+  }
+  depends_on = [google_bigquery_dataset.dataset]
+}
+
+resource "google_bigquery_table" "penguin-datalayer-diagnostic" {
+  dataset_id        = local.final_dataset_id
+  table_id          = local.bq_table_id_diagnostic
+  description       = "Tabela com os big number das validações para utilização em visualizações"
+  schema            = file("bigquery/schema_penguin_datalayer_diagnostic.json")
   clustering        =  ["data"]
   expiration_time    = null
   deletion_protection = false
@@ -67,21 +107,21 @@ resource "google_bigquery_table" "penguin-datalayer-raw" {
 data "template_file" "view_aggregation" {
   template = file("bigquery/query_view_chaves_agregadas.sql")
   vars = {
-   table_name = "${var.project_id}.${local.final_dataset_id}.${local.bq_table_id}"
+   table_name = "${var.project_id}.${local.final_dataset_id}.${local.bq_table_id_raw}"
   }
 }
 
 data "template_file" "view_diagnostic" {
   template = file("bigquery/query_view_diagnostico.sql")
   vars = {
-   table_name = "${var.project_id}.${local.final_dataset_id}.${local.bq_table_id}"
+   table_name = "${var.project_id}.${local.final_dataset_id}.${local.bq_table_id_raw}"
   }
 }
 
 resource "google_bigquery_table" "view_aggregation" {
     dataset_id          = local.final_dataset_id
     table_id            = local.bq_view_aggregation
-    description         = "View com os dados agregados da tabela ${local.bq_table_id}"
+    description         = "View com os dados agregados da tabela ${local.bq_table_id_raw}"
     deletion_protection = false
     view {
       query =  data.template_file.view_aggregation.rendered
@@ -96,7 +136,7 @@ resource "google_bigquery_table" "view_aggregation" {
 resource "google_bigquery_table" "view_diagnostic" {
     dataset_id          = local.final_dataset_id
     table_id            = local.bq_view_diagnostic
-    description         = "View com os dados agregados do resultado geral dos erros ${local.bq_table_id}"
+    description         = "View com os dados agregados do resultado geral dos erros ${local.bq_table_id_raw}"
     deletion_protection = false
     view {
       query =  data.template_file.view_diagnostic.rendered
@@ -106,6 +146,36 @@ resource "google_bigquery_table" "view_diagnostic" {
       produto = local.raft_suite_module
     }
     depends_on = [google_bigquery_dataset.dataset, google_bigquery_table.penguin-datalayer-raw]
+}
+
+resource "google_bigquery_data_transfer_config" "query_config_aggregation" {
+  depends_on = [google_bigquery_table.penguin-datalayer-aggregation]
+
+  display_name           = "consolidate_view_aggregation"
+  location               = var.location
+  data_source_id         = "scheduled_query"
+  schedule               = "every 24 hours"
+  destination_dataset_id = google_bigquery_table.penguin-datalayer-aggregation.dataset_id
+  params = {
+    destination_table_name_template = local.bq_table_id_aggregation
+    write_disposition               = "WRITE_APPEND"
+    query                           = "SELECT * FROM ${var.project_id}.${local.final_dataset_id}.${local.bq_table_id_aggregation}"
+  }
+}
+
+resource "google_bigquery_data_transfer_config" "query_config_diagnostic" {
+  depends_on = [google_bigquery_table.penguin-datalayer-diagnostic]
+
+  display_name           = "consolidate_view_diagnostic"
+  location               = var.location
+  data_source_id         = "scheduled_query"
+  schedule               = "every 24 hours"
+  destination_dataset_id = google_bigquery_table.penguin-datalayer-diagnostic.dataset_id
+  params = {
+    destination_table_name_template = local.bq_table_id_diagnostic
+    write_disposition               = "WRITE_APPEND"
+    query                           = "SELECT * FROM ${var.project_id}.${local.final_dataset_id}.${local.bq_table_id_diagnostic}"
+  }
 }
 
 ##################################

@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@google-cloud/functions-framework": "^1.7.1",
-    "chai": "^4.3.3",
+    "chai": "^4.3.4",
     "child-process-promise": "^2.2.1",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",

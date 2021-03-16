@@ -20,7 +20,21 @@ O penguin-datalayer-collect é um modulo do ecossitema raf-suite criado pela DP6
 
 ## Ecossistema raft-suite
 
+O penguin-datalayer-collect consegue auxiliar as áreas de digital analytics das empresas nos seguintes pilares da qualidade de dados:
+ 
+* Disponibilidade
+* Completude
+* Validade
+* Consistência
+* Acurácia
+* Uniformidade
+ 
+Essa abrangência pode ser observada com mais detalhes na imagem abaixo que representa o ciclo de vida do dado, e em quais momentos a solução pode ser aplicada.
+
+
 ![DP6](https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/datalayer-collect-abrangencia-ecossistema-raft-suite.jpg)
+
+O ecossistema raft-suite é uma solução da DP6 que visa suprir as necessidades de monitoria do ciclo de vida dos dados para antecipar possíveis inconsistências.
 
 # Setup penguin-datalayer-collect
 
@@ -40,6 +54,7 @@ O penguin-datalayer-collect é um modulo do ecossitema raf-suite criado pela DP6
 3. [Criar service Account](https://cloud.google.com/iam/docs/creating-managing-service-accounts) com as permissões (Storage Object Admin, Cloud Functions Admin, BigQuery Admin e Service Account User)
 4. Variável [GOOGLE_APPLICATION_CREDENTIALS](https://cloud.google.com/docs/authentication/getting-started#setting_the_environment_variable)
 5. Instalar o [Terraform](https://www.terraform.io/downloads.html)
+6. Habilitar os produtos no GCP Cloud Function, BigQuery, Cloud Build API, Cloud Resource Manager API, BigQuery Data Transfer API e Cloud Storage, para uso do BigQuery é necessário ter um billing ativo
 
 _Observação:_ Utilizando o ambiente no [Google Cloud Shell](https://cloud.google.com/shell/docs) não é necessário fazer os **1**, **2**, **4** e **5**
 
@@ -77,8 +92,8 @@ Outra abordagem que pode ser utilizada é fazer a coleta somente no ambiente de 
   *Tag responsável por enviar a camada de dados para o Penguin-datalayer-collect
   */
   analyticsHelper.safeFn('Penguin Datalayer Collect ', function(helper){
-      // Array do dataLyer configurado para o GTM
-      var body = window.dataLayer;
+      // Array do dataLyer, filtrando os eventos nativos do GTM e easyCollect
+      var body = window.dataLayer.filter(function(item) {return /gtm\.+|ga_pageview|midia_pageview/.test(item.event) == false});
 
       if (habilitarAmostragemValidacao() === 'true') {
           var request = new XMLHttpRequest();
@@ -126,8 +141,26 @@ O código da tag fornecido acima, utiliza a biblioteca [easy-collect](https://gi
 O penguin-datalayer-collect também pode ser utilizado para validar a coleta server-side, necessitando apenas que a coleta consiga gerar um array com as chaves implementadas.
 
 ## 4. Enriquecendos os dados com informações de negócio
+A implementação do penguin-datalayer-collect disponibiliza alguns dados brutos, eles são obtidos a partir da validação da camada de dados com base nos schemas fornecido para o validador, é importante salientar que o resulto depende do schema de validação, então sempre que ocorrer uma alteração na especificação técnica da camada de dados os schemas devem refletir as mesmas.
 
-TODO
+Os dados padrões são:
+| Nome      | Tipo      |  Opcional  | Descrição                   |
+| --------- | --------- | ---------  | ----------------------------|
+| data | DATETIME | Não | Datatime com timezone America/Sao_Paulo no padrão yyyy-mm-ddThh:mm:ss|
+| schema | STRING  | Não | Nome do schema utilizado para validação das chaves |
+| status | STRING | Não | Status da validação que pode ser (ERRO, WARNING ou OK) |
+| objectName | STRING | Sim | Nome do objeto da camada de dados validada |
+| keyName | STRING | Sim | Chave da camada de dados validada |
+
+Os dados padrões por si só, possibilita visualizações básicas da saúde da camada de dados, pois com esses dados as possibilidades de cruzamentos e classificação são poucas, entretanto, é muito fácil enriquecer os dados de validação com dados customizados do domínio de negócio, por meio da customização da tag base **3.1 GTM Web**.
+
+A adição de novas dimensões é bem simples, basta disponibilizar os dados escolhidos como parâmetros query string no endoint de validação, fazendo isso os parâmetros fornecidos estarão disponíveis para todas as validações, e serão inseridos no bigquery juntos com os dados padrões, na tabela **penguin_datalayer_raw**.
+
+Para que a inserção ocorra com sucesso é necessário apenas atualizar o schema da tabela disponível no json de configuração.
+
+
+Para saber mais sobre o funcionamento do penguin-datalayer-collect e como customizar os dados acesse nossa wiki.
+
 
 ## 5. Dashboard de acompanhamento
 A base de dados criada pelo penguin-datalayer-collect, pode ser utilizada para diversas análises fazendo o cruzamento com os dados de domínio do negócio, porém a DP6 desenvolveu um dashboard base para monitoramento das métricas de erros disponibilizada pelo módulo.

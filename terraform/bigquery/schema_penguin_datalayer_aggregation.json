@@ -1,0 +1,26 @@
+[
+  {
+    "name": "data",
+    "type": "DATETIME",
+    "mode": "REQUIRED",
+    "description": "Data no padrão yyyy-mm-dd"
+  },
+  {
+    "name": "status",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Status da validação"
+  },
+  {
+    "name": "nomeChave",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Nome da chave validada"
+  },
+  {
+    "name": "ocorrencias",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Quantidade da existências de chaves com erros"
+  }
+]

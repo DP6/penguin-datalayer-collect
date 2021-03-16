@@ -1,0 +1,26 @@
+[
+  {
+    "name": "data",
+    "type": "DATETIME",
+    "mode": "REQUIRED",
+    "description": "Data no padrão yyyy-mm-dd"
+  },
+  {
+    "name": "disparos_ok",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Quantidade de validações que ocorrem com sucesso"
+  },
+  {
+    "name": "disparos_erros",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Quantidade de validações que ocorrem com erros, devido ao não comprimento das regras do schema"
+  },
+  {
+    "name": "total_validacoes",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Quantidade total de validações realizadas, considerando a soma dos disparos de erros e oks"
+  }
+]

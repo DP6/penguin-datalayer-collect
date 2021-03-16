@@ -18,7 +18,7 @@
     "description": "Detalhamento da validação"
   },
   {
-    "name": "schema",
+    "name": "schemaName",
     "type": "STRING",
     "mode": "NULLABLE",
     "description": "Nome do schema utilizado para validação da chave"

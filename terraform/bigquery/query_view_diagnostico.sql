@@ -12,7 +12,7 @@ FROM
         FROM
             ${table_name}
         WHERE
-            DATE(data) = DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)
+            DATE(data) = DATE_SUB(CURRENT_DATE("America/Sao_Paulo"), INTERVAL 1 DAY)
         GROUP BY
             1
     )

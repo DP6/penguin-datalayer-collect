@@ -154,7 +154,7 @@ resource "google_bigquery_data_transfer_config" "query_config_aggregation" {
   display_name           = "consolidate_view_aggregation"
   location               = var.location
   data_source_id         = "scheduled_query"
-  schedule               = "every 24 hours"
+  schedule               = "every day 07:00"
   destination_dataset_id = google_bigquery_table.penguin-datalayer-aggregation.dataset_id
   params = {
     destination_table_name_template = local.bq_table_id_aggregation
@@ -169,7 +169,7 @@ resource "google_bigquery_data_transfer_config" "query_config_diagnostic" {
   display_name           = "consolidate_view_diagnostic"
   location               = var.location
   data_source_id         = "scheduled_query"
-  schedule               = "every 24 hours"
+  schedule               = "every day 07:00"
   destination_dataset_id = google_bigquery_table.penguin-datalayer-diagnostic.dataset_id
   params = {
     destination_table_name_template = local.bq_table_id_diagnostic

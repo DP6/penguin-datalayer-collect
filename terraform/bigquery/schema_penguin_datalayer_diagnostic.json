@@ -1,7 +1,7 @@
 [
   {
     "name": "data",
-    "type": "DATETIME",
+    "type": "DATE",
     "mode": "REQUIRED",
     "description": "Data no padrão yyyy-mm-dd"
   },

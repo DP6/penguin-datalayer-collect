@@ -7,10 +7,8 @@ FROM
     ${table_name}
 WHERE
     keyName IS NOT NULL
-    AND DATE(data) = DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)
+    AND DATE(data) = DATE_SUB(CURRENT_DATE("America/Sao_Paulo"), INTERVAL 1 DAY)
 GROUP BY
     1,
     2,
     3
-ORDER BY
-    DATA DESC

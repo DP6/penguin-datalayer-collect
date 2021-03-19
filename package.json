@@ -40,7 +40,15 @@
   },
   "homepage": "https://github.com/DP6/penguin-datalayer-collect#readme",
   "release": {
-    "branch": "master"
+    "branch": "master",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      ["@semantic-release/npm", {
+        "npmPublish": false
+      }],
+      ["@semantic-release/github"]
+    ]
   },
   "dependencies": {
     "@dp6/penguin-datalayer-core": "^1.1.3",

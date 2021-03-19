@@ -159,7 +159,7 @@ resource "google_bigquery_data_transfer_config" "query_config_aggregation" {
   params = {
     destination_table_name_template = local.bq_table_id_aggregation
     write_disposition               = "WRITE_APPEND"
-    query                           = "SELECT * FROM ${var.project_id}.${local.final_dataset_id}.${local.bq_table_id_aggregation}"
+    query                           = "SELECT * FROM ${var.project_id}.${local.final_dataset_id}.${local.bq_view_aggregation}"
   }
 }
 
@@ -174,7 +174,7 @@ resource "google_bigquery_data_transfer_config" "query_config_diagnostic" {
   params = {
     destination_table_name_template = local.bq_table_id_diagnostic
     write_disposition               = "WRITE_APPEND"
-    query                           = "SELECT * FROM ${var.project_id}.${local.final_dataset_id}.${local.bq_table_id_diagnostic}"
+    query                           = "SELECT * FROM ${var.project_id}.${local.final_dataset_id}.${local.bq_view_diagnostic}"
   }
 }
 

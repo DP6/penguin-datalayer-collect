@@ -2,8 +2,8 @@
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/centro_de_inovacao_dp6.png" height="100px" />
-
 </div>
+
 <p align="center">
   <a href="#badge">
     <img alt="semantic-release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
@@ -21,16 +21,15 @@ O penguin-datalayer-collect é um modulo do ecossitema raf-suite criado pela DP6
 ## Ecossistema raft-suite
 
 O penguin-datalayer-collect consegue auxiliar as áreas de digital analytics das empresas nos seguintes pilares da qualidade de dados:
- 
-* Disponibilidade
-* Completude
-* Validade
-* Consistência
-* Acurácia
-* Uniformidade
- 
-Essa abrangência pode ser observada com mais detalhes na imagem abaixo que representa o ciclo de vida do dado, e em quais momentos a solução pode ser aplicada.
 
+- Disponibilidade
+- Completude
+- Validade
+- Consistência
+- Acurácia
+- Uniformidade
+
+Essa abrangência pode ser observada com mais detalhes na imagem abaixo que representa o ciclo de vida do dado, e em quais momentos a solução pode ser aplicada.
 
 ![DP6](https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/datalayer-collect-abrangencia-ecossistema-raft-suite.jpg)
 
@@ -141,32 +140,69 @@ O código da tag fornecido acima, utiliza a biblioteca [easy-collect](https://gi
 O penguin-datalayer-collect também pode ser utilizado para validar a coleta server-side, necessitando apenas que a coleta consiga gerar um array com as chaves implementadas.
 
 ## 4. Enriquecendos os dados com informações de negócio
+
 A implementação do penguin-datalayer-collect disponibiliza alguns dados brutos, eles são obtidos a partir da validação da camada de dados com base nos schemas fornecido para o validador, é importante salientar que o resulto depende do schema de validação, então sempre que ocorrer uma alteração na especificação técnica da camada de dados os schemas devem refletir as mesmas.
 
 Os dados padrões são:
-| Nome      | Tipo      |  Opcional  | Descrição                   |
-| --------- | --------- | ---------  | ----------------------------|
-| data | DATETIME | Não | Datatime com timezone America/Sao_Paulo no padrão yyyy-mm-ddThh:mm:ss|
-| schema | STRING  | Não | Nome do schema utilizado para validação das chaves |
-| status | STRING | Não | Status da validação que pode ser (ERRO, WARNING ou OK) |
-| objectName | STRING | Sim | Nome do objeto da camada de dados validada |
-| keyName | STRING | Sim | Chave da camada de dados validada |
 
-Os dados padrões por si só, possibilita visualizações básicas da saúde da camada de dados, pois com esses dados as possibilidades de cruzamentos e classificação são poucas, entretanto, é muito fácil enriquecer os dados de validação com dados customizados do domínio de negócio, por meio da customização da tag base **3.1 GTM Web**.
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Tipo</th>
+      <th>Opcional</th>
+      <th>Descrição</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>data</td>
+      <td>DATETIME</td>
+      <td>Não</td>
+      <td>
+        Datatime com timezone America/Sao_Paulo no padrão yyyy-mm-ddThh:mm:ss
+      </td>
+    </tr>
+    <tr>
+      <td>schema</td>
+      <td>STRING</td>
+      <td>Não</td>
+      <td>Nome do schema utilizado para validação das chaves</td>
+    </tr>
+    <tr>
+      <td>status</td>
+      <td>STRING</td>
+      <td>Não</td>
+      <td>Status da validação que pode ser (ERRO, WARNING ou OK)</td>
+    </tr>
+    <tr>
+      <td>objectName</td>
+      <td>STRING</td>
+      <td>Sim</td>
+      <td>Nome do objeto da camada de dados validada</td>
+    </tr>
+    <tr>
+      <td>keyName</td>
+      <td>STRING</td>
+      <td>Sim</td>
+      <td>Chave da camada de dados validada</td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+Os dados padrões por si só, possibilitam visualizações básicas da saúde da camada de dados, pois com esses dados as possibilidades de cruzamentos e classificação são poucas, entretanto, é muito fácil enriquecer os dados de validação com dados customizados do domínio de negócio, por meio da customização da tag base **3.1 GTM Web**.
 
 A adição de novas dimensões é bem simples, basta disponibilizar os dados escolhidos como parâmetros query string no endoint de validação, fazendo isso os parâmetros fornecidos estarão disponíveis para todas as validações, e serão inseridos no bigquery juntos com os dados padrões, na tabela **penguin_datalayer_raw**.
 
 Para que a inserção ocorra com sucesso é necessário apenas atualizar o schema da tabela disponível no json de configuração.
 
-
 Para saber mais sobre o funcionamento do penguin-datalayer-collect e como customizar os dados acesse nossa wiki.
 
-
 ## 5. Dashboard de acompanhamento
+
 A base de dados criada pelo penguin-datalayer-collect, pode ser utilizada para diversas análises fazendo o cruzamento com os dados de domínio do negócio, porém a DP6 desenvolveu um dashboard base para monitoramento das métricas de erros disponibilizada pelo módulo.
 
 ![DP6](https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/dashboard_penguin_datalayer_collect.png)
-
 
 ## 6. Como contribuir
 

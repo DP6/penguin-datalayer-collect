@@ -20,3 +20,9 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests,integrationtest
           name: codecov-nyc
+      - name: Upload coverage to Codacy
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/cobertura-coverage.xml
+        with:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        continue-on-error: true
+         

@@ -15,7 +15,7 @@
     "integration-test": "mocha ./test/integration --timeout=16000 --exit",
     "all-test": "npm run integration-test && npm run unit-test",
     "test": "npm -- run all-test",
-    "coverage": "nyc --reporter=lcov npm run unit-test",
+    "coverage": "nyc --reporter=lcov --reporter=cobertura npm run unit-test",
     "docs": "jsdoc2md index.js > docs/index.md",
     "local": "functions-framework --target=penguinDatalayerCollect --signature-type=http --port 8080"
   },

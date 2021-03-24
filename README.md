@@ -19,7 +19,7 @@
   </a>
 </p>
 
-O penguin-datalayer-collect é um modulo do ecossitema raf-suite criado pela DP6 para garantir a qualidade dos dados ([Data Quality](https://en.wikipedia.org/wiki/Data_quality)) nos projetos de engenharia de dados implementados nos clientes da DP6, através de monitoramento e pipelines automatizadas de dados.
+O penguin-datalayer-collect é um modulo do ecossistema raf-suite criado pela DP6 para garantir a qualidade dos dados ([Data Quality](https://en.wikipedia.org/wiki/Data_quality)) nos projetos de engenharia de dados implementados nos clientes da DP6, através de monitoramento automatizados de dados.
 
 ## Ecossistema raft-suite
 
@@ -91,7 +91,7 @@ Outra abordagem que pode ser utilizada é fazer a coleta somente no ambiente de 
 ```html
 <script>
 /*
-*Tag responsável por enviar a camada de dados para o Penguin-datalayer-collect
+*Tag responsável por enviar a camada de dados para o penguin-datalayer-collect
 */
 analyticsHelper.safeFn('Penguin Datalayer Collect ', function(helper){
   // Array do dataLyer, filtrando os eventos nativos do GTM e easyCollect
@@ -144,7 +144,7 @@ O código da tag fornecido acima, utiliza a biblioteca [easy-collect](https://gi
 
 O penguin-datalayer-collect também pode ser utilizado para validar a coleta server-side, necessitando apenas que a coleta consiga gerar um array com as chaves implementadas.
 
-## 4. Enriquecendos os dados com informações de negócio
+## 4. Enriquecendo os dados com informações de negócio
 
 A implementação do penguin-datalayer-collect disponibiliza alguns dados brutos, eles são obtidos a partir da validação da camada de dados com base nos schemas fornecido para o validador, é importante salientar que o resulto depende do schema de validação, então sempre que ocorrer uma alteração na especificação técnica da camada de dados os schemas devem refletir as mesmas.
 
@@ -165,7 +165,7 @@ Os dados padrões são:
       <td>DATETIME</td>
       <td>Não</td>
       <td>
-        Datatime com timezone America/Sao_Paulo no padrão yyyy-mm-ddThh:mm:ss
+        Datetime com timezone America/Sao_Paulo no padrão yyyy-mm-ddThh:mm:ss
       </td>
     </tr>
     <tr>
@@ -211,11 +211,11 @@ A base de dados criada pelo penguin-datalayer-collect, pode ser utilizada para d
 
 ## 6. Como contribuir
 
-Pull requests são bem-vindos! Nós vamos adorar ajuda para evoluir esse modulo. Senta-se livre para navegar por open issues buscando por algo que possa fazer. Caso temha uma nova feature ou bug, por favor abra uma nova issue para ser acompanhada pelo nosso time.
+Pull requests são bem-vindos! Nós vamos adorar ajuda para evoluir esse modulo. Sinta-se livre para navegar por issues abertas buscando por algo que possa fazer. Caso tenha uma nova feature ou bug, por favor abra uma nova issue para ser acompanhada pelo nosso time.
 
 ### 6.1 Requisitos obrigatórios
 
-Só serão aceito as contribuições que estiverem seguindo os seguintes requisitos:
+Só serão aceitsd as contribuições que estiverem seguindo os seguintes requisitos:
 
 - [Padrão de commit](https://www.conventionalcommits.org/en/v1.0.0/)
 

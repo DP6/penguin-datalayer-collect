@@ -1,5 +1,7 @@
 # penguin-datalayer-collect
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a40d2e1b1f574ae5b8afea8978f76007)](https://app.codacy.com/gh/DP6/penguin-datalayer-collect?utm_source=github.com&utm_medium=referral&utm_content=DP6/penguin-datalayer-collect&utm_campaign=Badge_Grade_Settings)
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/centro_de_inovacao_dp6.png" height="100px" />
 </div>

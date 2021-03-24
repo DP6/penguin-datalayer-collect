@@ -14,6 +14,9 @@
   <a href="#badge">
     <img alt="Test" src="https://github.com/dp6/penguin-datalayer-collect/actions/workflows/test.yml/badge.svg">
   </a>
+  <a href="https://www.codacy.com/gh/DP6/penguin-datalayer-collect/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DP6/penguin-datalayer-collect&amp;utm_campaign=Badge_Grade">
+    <img alt="Code quality" src="https://app.codacy.com/project/badge/Grade/e8c6c0048272446684b010747ac79ff0">
+  </a>
 </p>
 
 O penguin-datalayer-collect é um modulo do ecossitema raf-suite criado pela DP6 para garantir a qualidade dos dados ([Data Quality](https://en.wikipedia.org/wiki/Data_quality)) nos projetos de engenharia de dados implementados nos clientes da DP6, através de monitoramento e pipelines automatizadas de dados.

@@ -22,7 +22,7 @@ jobs:
           name: codecov-nyc
       - name: Upload coverage to Codacy
         run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/cobertura-coverage.xml
-        with:
+        env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         continue-on-error: true
          

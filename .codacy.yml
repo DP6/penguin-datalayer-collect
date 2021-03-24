@@ -1,8 +1,22 @@
+engines:
+  eslint:
+    languages:
+      - 'js'
+  SQLint:
+    languages:
+      - 'sql'
+  remark-lint:
+    languages:
+      - 'md'
+  jacksonlinter:
+    languages:
+      - 'json'
+
 exclude_paths:
-  - ".github/*"
-  - ".**"
-  - "docs/*"
-  - "CODE_OF_CONDUCT.md"
-  - "CONTRIBUTING.md"
-  - "LICENSE"
-  - "terraform/files-copy-to-gcs/schemas/*"
+  - '.github/*'
+  - '.**'
+  - 'docs/*'
+  - 'CODE_OF_CONDUCT.md'
+  - 'CONTRIBUTING.md'
+  - 'LICENSE'
+  - 'terraform/files-copy-to-gcs/schemas/*'

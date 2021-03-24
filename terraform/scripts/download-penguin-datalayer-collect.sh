@@ -1,7 +1,7 @@
 
 #!/bin/bash
 echo "Executando $0  com os parâmetros versão=$1  e bucket=$2"
-curl https://codeload.github.com/DP6/penguin-datalayer-collect/zip/v$1 --output code.zip
+curl "https://codeload.github.com/DP6/penguin-datalayer-collect/zip/v$1" --output code.zip
 unzip code.zip
 rm -f code.zip
 cd penguin-datalayer-collect-"$1"

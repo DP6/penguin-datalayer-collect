@@ -8,7 +8,7 @@
 
 name: Codacy Security Scan
 
-on: ["push"]
+on: ['push']
 
 jobs:
   codacy-security-scan:

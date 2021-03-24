@@ -31,9 +31,9 @@ Please make sure to include the following information in the issue:
 1. What version of are you using?
 2. Does the issue happen if you use the latest version?
 3. Schema and the data you are validating (please make it as small as possible to reproduce the issue).
-5. Your code sample (please use `schema` and `data` as variables).
-6. Validation result, data AFTER validation, error messages.
-7. What results did you expect?
+4. Your code sample (please use `schema` and `data` as variables).
+5. Validation result, data AFTER validation, error messages.
+6. What results did you expect?
 
 [Create bug report](https://github.com/dp6/penguin-datalayer-collect/issues/new?template=bug_report.md).
 

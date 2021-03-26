@@ -207,7 +207,8 @@ Para saber mais sobre o funcionamento do penguin-datalayer-collect e como custom
 
 A base de dados criada pelo penguin-datalayer-collect, pode ser utilizada para diversas análises fazendo o cruzamento com os dados de domínio do negócio, porém a DP6 desenvolveu um dashboard base para monitoramento das métricas de erros disponibilizada pelo módulo.
 
-<img alt="DP6" src="https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/dashboard_penguin_datalayer_collect.png" style="max-width: 1100px;"/>
+<img alt="CI - Public - penguin datalayer collect" src="https://github.com/DP6/templates-centro-de-inovacoes/raw/main/public/images/dashboar-penguin-datalayer-collect.gif" style="max-width: 800px;"/>
+
 
 ## 6. Como contribuir
 

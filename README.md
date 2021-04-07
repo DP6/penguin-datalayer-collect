@@ -25,18 +25,24 @@ O penguin-datalayer-collect é um modulo do ecossistema raf-suite criado pela DP
 
 O penguin-datalayer-collect consegue auxiliar as áreas de digital analytics das empresas nos seguintes pilares da qualidade de dados:
 
-- Disponibilidade
-- Completude
-- Validade
-- Consistência
-- Acurácia
-- Uniformidade
+- Disponibilidade _(Atende totalmente)_
+- Tempestividade _(Atende totalmente)_
+- Completude _(Atende totalmente)_
+- Validade _(Atende parcialmente)_
+- Consistência _(Atende parcialmente)_
+- Acurácia _(Atende parcialmente)_
+- Uniformidade  _(Atende totalmente)_
+- Acessibilidade _(Atende totalmente)_
+- Segurança _(Atende parcialmente)_
 
 Essa abrangência pode ser observada com mais detalhes na imagem abaixo que representa o ciclo de vida do dado, e em quais momentos a solução pode ser aplicada.
 
-![DP6](https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/datalayer-collect-abrangencia-ecossistema-raft-suite.jpg)
+
+<img alt="Dimensões de qualidade de dados adaptadas do framework TDQM" src="https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/datalayer-collect-abrangencia-ecossistema-raft-suite.jpg"></img>
 
 O ecossistema raft-suite é uma solução da DP6 que visa suprir as necessidades de monitoria do ciclo de vida dos dados para antecipar possíveis inconsistências.
+
+[Dimensões de qualidade de dados adaptadas do framework TDQM](http://web.mit.edu/tdqm/)
 
 # Setup penguin-datalayer-collect
 
@@ -207,8 +213,9 @@ Para saber mais sobre o funcionamento do penguin-datalayer-collect e como custom
 
 A base de dados criada pelo penguin-datalayer-collect, pode ser utilizada para diversas análises fazendo o cruzamento com os dados de domínio do negócio, porém a DP6 desenvolveu um dashboard base para monitoramento das métricas de erros disponibilizada pelo módulo.
 
-<img alt="CI - Public - penguin datalayer collect" src="https://github.com/DP6/templates-centro-de-inovacoes/raw/main/public/images/dashboar-penguin-datalayer-collect.gif" style="max-width: 800px;"/>
-
+<a target="_blank" href="https://datastudio.google.com/u/1/reporting/dd3001e4-52d1-4a6c-833e-7c983bb279b1/page/LyZ7B">
+  <img alt="CI - Public - penguin datalayer collect" src="https://github.com/DP6/templates-centro-de-inovacoes/raw/main/public/images/dashboar-penguin-datalayer-collect.gif" style="width: 800px;"/>
+</a>
 
 ## 6. Como contribuir
 
@@ -216,7 +223,7 @@ Pull requests são bem-vindos! Nós vamos adorar ajuda para evoluir esse modulo.
 
 ### 6.1 Requisitos obrigatórios
 
-Só serão aceitsd as contribuições que estiverem seguindo os seguintes requisitos:
+Só serão aceitas contribuições que estiverem seguindo os seguintes requisitos:
 
 - [Padrão de commit](https://www.conventionalcommits.org/en/v1.0.0/)
 

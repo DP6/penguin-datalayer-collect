@@ -1,7 +1,5 @@
 name: Lint and format
-on:
-  pull_request:
-    branches: [master]
+on: ['push']
 jobs:
   format:
     runs-on: ubuntu-latest

@@ -8,9 +8,7 @@
   <a href="#badge">
     <img alt="semantic-release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
   </a>
-  <a href="https://codecov.io/gh/dp6/penguin-datalayer-collect">
-    <img src="https://codecov.io/gh/dp6/penguin-datalayer-collect/branch/master/graph/badge.svg?token=AL6REB2792"/>
-  </a>
+  <a href="https://www.codacy.com/gh/DP6/penguin-datalayer-collect/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DP6/penguin-datalayer-collect&amp;utm_campaign=Badge_Coverage"><img alt="Code coverage" src="https://app.codacy.com/project/badge/Coverage/e8c6c0048272446684b010747ac79ff0"/></a>
   <a href="#badge">
     <img alt="Test" src="https://github.com/dp6/penguin-datalayer-collect/actions/workflows/test.yml/badge.svg">
   </a>

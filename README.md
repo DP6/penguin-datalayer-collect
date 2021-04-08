@@ -25,20 +25,19 @@ O penguin-datalayer-collect é um modulo do ecossistema raf-suite criado pela DP
 
 O penguin-datalayer-collect consegue auxiliar as áreas de digital analytics das empresas nos seguintes pilares da qualidade de dados:
 
-- Disponibilidade _(Atende totalmente)_
-- Tempestividade _(Atende totalmente)_
-- Completude _(Atende totalmente)_
-- Validade _(Atende parcialmente)_
-- Consistência _(Atende parcialmente)_
-- Acurácia _(Atende parcialmente)_
-- Uniformidade  _(Atende totalmente)_
-- Acessibilidade _(Atende totalmente)_
-- Segurança _(Atende parcialmente)_
+- **Disponibilidade** _(atende totalmente)_
+- **Tempestividade** _(atende totalmente)_
+- **Completude** _(atende totalmente)_
+- **Validade** _(atende parcialmente)_
+- **Consistência** _(atende parcialmente)_
+- **Acurácia** _(atende parcialmente)_
+- **Uniformidade** _(atende totalmente)_
+- **Acessibilidade** _(atende totalmente)_
+- **Segurança** _(atende parcialmente)_
 
 Essa abrangência pode ser observada com mais detalhes na imagem abaixo que representa o ciclo de vida do dado, e em quais momentos a solução pode ser aplicada.
 
-
-<img alt="Dimensões de qualidade de dados adaptadas do framework TDQM" src="https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/datalayer-collect-abrangencia-ecossistema-raft-suite.jpg"></img>
+<img alt="Dimensões de qualidade de dados adaptadas do framework TDQM" src="https://raw.githubusercontent.com/DP6/templates-centro-de-inovacoes/main/public/images/datalayer-collect-abrangencia-ecossistema-raft-suite.jpg"/>
 
 O ecossistema raft-suite é uma solução da DP6 que visa suprir as necessidades de monitoria do ciclo de vida dos dados para antecipar possíveis inconsistências.
 

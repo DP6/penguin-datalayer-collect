@@ -11,7 +11,7 @@
   "scripts": {
     "format": "prettier --write .",
     "lint-md": "remark .",
-    "lint-prettier": "npx prettier --check .",
+    "lint-prettier": "npx prettier --check . || exit 0",
     "lint": "npm run lint-md && npm run lint-prettier",
     "unit-test": "mocha ./test/unit  -timeout 8000",
     "integration-test": "mocha ./test/integration --timeout=16000 --exit",
@@ -58,19 +58,19 @@
     ]
   },
   "dependencies": {
-    "@dp6/penguin-datalayer-core": "^1.1.3",
+    "@dp6/penguin-datalayer-core": "^1.1.4",
     "@google-cloud/bigquery": "^5.5.0",
-    "@google-cloud/storage": "^5.8.1"
+    "@google-cloud/storage": "^5.8.4"
   },
   "devDependencies": {
     "@google-cloud/functions-framework": "^1.7.1",
-    "chai": "^4.3.3",
+    "chai": "^4.3.4",
     "child-process-promise": "^2.2.1",
-    "eslint": "^7.22.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "jsdoc-to-markdown": "^7.0.0",
-    "mocha": "^8.3.1",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "jsdoc-to-markdown": "^7.0.1",
+    "mocha": "^8.3.2",
     "nyc": "^15.1.0",
     "prettier": "2.2.1",
     "proxyquire": "^2.1.3",
@@ -79,7 +79,7 @@
     "remark-preset-lint-recommended": "^5.0.0",
     "request": "^2.88.2",
     "requestretry": "^5.0.0",
-    "sinon": "^9.2.4",
+    "sinon": "^10.0.0",
     "uuid": "^8.3.2"
   }
 }

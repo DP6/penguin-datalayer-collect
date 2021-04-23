@@ -2,6 +2,7 @@ name: Lint and format
 on: ['push']
 jobs:
   format:
+    name: Lint and format
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,7 +20,7 @@ jobs:
           npm ci
           npm run format
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4.1.2
+        uses: stefanzweifel/git-auto-commit-action@v4.10.0
         with:
           commit_message: 'style: :lipstick: Apply formatting changes'
           branch: ${{ github.head_ref }}

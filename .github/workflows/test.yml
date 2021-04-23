@@ -2,6 +2,7 @@ name: Test
 on: [push, pull_request]
 jobs:
   run:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

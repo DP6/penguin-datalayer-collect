@@ -28,8 +28,8 @@ variable "project_prefix" {
   type        = string
   description = "Pré-fixo que será utilizado para nomear os produtos que serão utilizados e criados no GCP, exemplo para o cliente Brasil podemos usar o pré-fixo br"
   validation {
-    condition     = can(regex("[a-z0-9]", var.project_prefix)) && length(var.project_prefix) <= 4
-    error_message = "The prefix value must be a [a-z0-9] and size <= 4, exemple \"br01\"."
+    condition     = can(regex("[a-z0-9]", var.project_prefix)) && length(var.project_prefix) <= 8
+    error_message = "The prefix value must be a [a-z0-9] and size <= 4, exemple \"br012020\"."
   }
 }
 

@@ -10,7 +10,6 @@ afterEach(): It’s a hook to run after each it() or describe();
 const { assert } = require('chai');
 const chai = require('chai');
 const expect = chai.expect;
-const sinon = require('sinon');
 const uuid = require('uuid');
 process.env.PENGUIN_DATALAYER_BUCKET_GCS = 'teste-raft-suite';
 

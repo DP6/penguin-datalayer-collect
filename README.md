@@ -60,6 +60,7 @@ O ecossistema raft-suite é uma solução da DP6 que visa suprir as necessidades
 4. Variável [GOOGLE_APPLICATION_CREDENTIALS](https://cloud.google.com/docs/authentication/getting-started#setting_the_environment_variable)
 5. Instalar o [Terraform](https://www.terraform.io/downloads.html)
 6. Habilitar os produtos no GCP Cloud Function, BigQuery, Cloud Build API, Cloud Resource Manager API, BigQuery Data Transfer API e Cloud Storage, para uso do BigQuery é necessário ter um billing ativo
+7. Importante o usuário que executar o script do terraform precisa ter a permissão de owner no projeto do GCP.
 
 _Observação:_ Utilizando o ambiente no [Google Cloud Shell](https://cloud.google.com/shell/docs) não é necessário fazer os **1**, **2**, **4** e **5**
 
@@ -69,15 +70,16 @@ Para gerar o schema de validação da camada de dados acesse a documentação di
 
 ## 2. Instalando o penguin-datalayer-core
 
-Clone o projeto do github para sua máquina local ou Cloud Shell
+Clone o projeto do github para sua máquina local ou Cloud Shell, usando o comando abaixo
 
 ```console
 git clone https://github.com/DP6/penguin-datalayer-collect.git
 ```
 
-Para fazer deploy no GCP usando o Terraform, o utilize o shell script terraform_deploy
+Para fazer deploy no GCP usando o Terraform, o utilize o shell script terraform_deploy, usando o comando abaixo
 
 ```console
+cd penguin-datalayer-collect
 sh terraform_deploy.sh
 ```
 

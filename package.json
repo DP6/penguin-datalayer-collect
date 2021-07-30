@@ -14,7 +14,7 @@
     "lint-prettier": "npx prettier --check . || exit 0",
     "lint": "npm run lint-md && npm run lint-prettier",
     "unit-test": "mocha ./test/unit  -timeout 8000",
-    "integration-test": "mocha ./test/integration --timeout=16000 --exit",
+    "integration-test": "mocha ./test/integration --timeout=2000 --exit",
     "all-test": "npm run integration-test && npm run unit-test",
     "test": "npm -- run all-test",
     "coverage": "nyc --reporter=lcov --reporter=cobertura npm run unit-test",
@@ -59,27 +59,26 @@
   },
   "dependencies": {
     "@dp6/penguin-datalayer-core": "^1.1.5",
-    "@google-cloud/bigquery": "^5.5.0",
-    "@google-cloud/storage": "^5.8.5"
+    "@google-cloud/bigquery": "^5.7.0",
+    "@google-cloud/storage": "^5.11.0"
   },
   "devDependencies": {
-    "@google-cloud/functions-framework": "^1.7.1",
+    "@google-cloud/functions-framework": "^1.9.0",
     "chai": "^4.3.4",
     "child-process-promise": "^2.2.1",
-    "eslint": "^7.28.0",
-    "eslint-config-prettier": "^8.2.0",
+    "eslint": "^7.31.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "jsdoc-to-markdown": "^7.0.1",
-    "mocha": "^8.3.2",
+    "mocha": "^9.0.3",
     "nyc": "^15.1.0",
-    "prettier": "2.3.1",
+    "prettier": "^2.3.2",
     "proxyquire": "^2.1.3",
     "remark": "^13.0.0",
     "remark-cli": "^9.0.0",
     "remark-preset-lint-recommended": "^5.0.0",
     "request": "^2.88.2",
     "requestretry": "^5.0.0",
-    "sinon": "^10.0.0",
     "uuid": "^8.3.2"
   }
 }

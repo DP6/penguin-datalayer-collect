@@ -14,7 +14,7 @@
     "lint-prettier": "npx prettier --check . || exit 0",
     "lint": "npm run lint-md && npm run lint-prettier",
     "unit-test": "mocha ./test/unit  -timeout 8000",
-    "integration-test": "mocha ./test/integration --timeout=2000 --exit",
+    "integration-test": "mocha ./test/integration --timeout=20000 --exit",
     "all-test": "npm run integration-test && npm run unit-test",
     "test": "npm -- run all-test",
     "coverage": "nyc --reporter=lcov --reporter=cobertura npm run unit-test",

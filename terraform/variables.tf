@@ -59,7 +59,7 @@ variable "region" {
 variable "location" {
   type        = string
   description = "Localização do projeto GCP https://cloud.google.com/compute/docs/regions-zones?hl=pt-br default us"
-  default     = "us"
+  default     = "US"
 }
 
 variable "service_account_email" {

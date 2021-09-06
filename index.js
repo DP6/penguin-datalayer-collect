@@ -103,10 +103,7 @@ async function insertRowsAsStream(data) {
 
   trace(data);
   // Insert data into a table
-  await bigquery
-    .dataset(BQ_DATASET_ID)
-    .table(penguinConfig.BQ_TABLE_ID_RAWDATA)
-    .insert(data, options, insertHandler);
+  await bigquery.dataset(BQ_DATASET_ID).table(penguinConfig.BQ_TABLE_ID_RAWDATA).insert(data, options, insertHandler);
 
   console.log(`Inserted ${data.length} rows`);
 }

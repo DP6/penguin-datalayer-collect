@@ -2,6 +2,7 @@ const datalayerCore = require('@dp6/penguin-datalayer-core');
 const { BigQuery } = require('@google-cloud/bigquery');
 const { Storage } = require('@google-cloud/storage');
 const BUCKET_GCS = process.env.PENGUIN_DATALAYER_BUCKET_GCS;
+const BQ_DATASET_ID = process.env.BQ_DATASET_ID;
 const FOLDER_PENGUIN = 'penguin-datalayer-collect';
 let penguinConfig = {};
 let debugging = false;
@@ -103,7 +104,7 @@ async function insertRowsAsStream(data) {
   trace(data);
   // Insert data into a table
   await bigquery
-    .dataset(penguinConfig.BQ_DATASET_ID)
+    .dataset(BQ_DATASET_ID)
     .table(penguinConfig.BQ_TABLE_ID_RAWDATA)
     .insert(data, options, insertHandler);
 

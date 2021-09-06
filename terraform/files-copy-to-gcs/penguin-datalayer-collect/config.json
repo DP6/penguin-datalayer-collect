@@ -5,7 +5,6 @@
     "global": ["exemplo_schema.json"]
   },
   "PARAM_QUERY_STRING_SCHEMA": "schema",
-  "BQ_DATASET_ID": "raft_suite",
   "BQ_TABLE_ID_RAWDATA": "penguin_datalayer_raw",
   "BQ_SCHEMA_RAWDATA": "data: DATETIME, status: STRING, message: STRING, schema: STRING, objectName: STRING, keyName: STRING"
 }

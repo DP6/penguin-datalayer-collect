@@ -195,7 +195,8 @@ resource "google_cloudfunctions_function" "function" {
   trigger_http          = true
   entry_point           = local.cf_entry_point
   environment_variables = {
-    PENGUIN_DATALAYER_BUCKET_GCS = local.final_bucket_name
+    PENGUIN_DATALAYER_BUCKET_GCS = local.final_bucket_name,
+    BQ_DATASET_ID      = local.final_dataset_id
   }
   depends_on = [null_resource.cf_code_zip]
 }
